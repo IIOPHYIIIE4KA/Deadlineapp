@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/deadlineFragment">
+    <fragment
+        android:id="@+id/deadlineFragment"
+        android:name="com.alexandr.deadlineapp.Presentation.Acrivities.Main.DeadlineFragment"
+        android:label="deadline_fragment"
+        tools:layout="@layout/deadline_fragment" >
+        <action
+            android:id="@+id/action_deadlineFragment_to_addDeadlineFragment"
+            app:destination="@id/addDeadlineFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addDeadlineFragment"
+        android:name="com.alexandr.deadlineapp.Presentation.Acrivities.Main.AddDeadlineFragment"
+        android:label="dialog_add"
+        tools:layout="@layout/dialog_add" />
+</navigation>

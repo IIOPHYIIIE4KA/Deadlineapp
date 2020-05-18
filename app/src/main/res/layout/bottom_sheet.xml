@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    android:theme="@style/Platform.MaterialComponents"
+    android:background="@color/white">
+
+    <EditText android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editPredmet"
+        android:inputType="textCapCharacters"
+        android:hint="@string/predmet_title"
+        android:textColorHint="@color/grey"
+        android:textSize="20sp"
+        android:autofillHints=""
+        android:textColor="@android:color/black"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editDescription"
+        android:textColorHint="@color/grey"
+        android:inputType="text"
+        android:layout_marginTop="8dp"
+        android:hint="@string/deadline_descr"
+        android:autofillHints=""
+        android:textColor="@android:color/black"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+        <EditText
+            android:id="@+id/editDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:ems="10"
+            android:hint="@string/deadline_date"
+            android:textColorHint="@color/grey"
+            android:textColor="@android:color/black"
+            android:enabled="false"/>
+
+        <ImageView
+            android:id="@+id/imgCal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_cal"
+            android:adjustViewBounds="true"
+            android:maxWidth="30dp"
+            android:maxHeight="30dp"
+            android:layout_gravity="center"/>
+        <EditText
+            android:id="@+id/editTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.45"
+            android:ems="10"
+            android:inputType="time"
+            android:hint="@string/deadline_time"
+            android:textColorHint="@color/grey"
+            android:textColor="@android:color/black"
+            android:enabled="false"/>
+        <ImageView
+            android:id="@+id/imgClk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_clk"
+            android:adjustViewBounds="true"
+            android:maxWidth="30dp"
+            android:maxHeight="30dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/chipGr"
+        android:layout_marginTop="8dp"
+        app:singleSelection="true"
+        app:checkedChip="@id/chipLow">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipLow"
+            style="@style/ChipStyle"
+            android:layout_height="wrap_content"
+            android:text="@string/importanceLow"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipMedium"
+            style="@style/ChipStyle"
+            android:layout_height="wrap_content"
+            android:text="@string/importanceMedium"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipHigh"
+            style="@style/ChipStyle"
+            android:layout_height="wrap_content"
+            android:text="@string/importanceHigh"
+            app:rippleColor="@color/grey" />
+    </com.google.android.material.chip.ChipGroup>
+        <ImageView
+            android:id="@+id/imgPinned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_unpin"
+            android:adjustViewBounds="true"
+            android:maxWidth="30dp"
+            android:maxHeight="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="5dp"
+            android:contentDescription="unpinned"
+            android:layout_marginVertical="17dp"/>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btadd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add"
+        android:layout_gravity="right"
+        android:background="@android:color/holo_green_light"
+        android:layout_marginBottom="15dp"/>
+
+
+</LinearLayout>

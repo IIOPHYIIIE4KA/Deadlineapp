@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    tools:context=".Presentation.Acrivities.Main.AddDeadlineFragment">
+
+    <EditText android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editPredmet"
+        android:inputType="textAutoCorrect"
+        android:hint="@string/predmet_title"
+        android:autofillHints="" />
+
+    <EditText android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editDescription"
+        android:inputType="textAutoCorrect"
+        android:maxLines="5"
+        android:layout_marginTop="8dp"
+        android:hint="@string/deadline_descr"
+        android:autofillHints="" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+        <EditText
+            android:id="@+id/editDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:ems="10"
+            android:hint="@string/deadline_date"/>
+
+        <ImageButton
+            android:id="@+id/imageButtonDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:src="@android:drawable/ic_menu_day" />
+
+        <EditText
+            android:id="@+id/editTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.45"
+            android:ems="10"
+            android:inputType="time"
+            android:hint="@string/deadline_time"/>
+        <ImageButton
+            android:id="@+id/imageButtonTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:src="@android:drawable/ic_menu_my_calendar"/>
+    </LinearLayout>
+    <com.google.android.material.chip.ChipGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:id="@+id/chipGr"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center"
+        app:singleSelection="true"
+        app:checkedChip="@id/chipLow">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipLow"
+                style="@style/ChipStyle"
+                android:layout_height="wrap_content"
+                android:text="@string/importanceLow" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMedium"
+                style="@style/ChipStyle"
+                android:layout_height="wrap_content"
+                android:text="@string/importanceMedium" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipHigh"
+                style="@style/ChipStyle"
+                android:layout_height="wrap_content"
+                android:text="@string/importanceHigh" />
+        </com.google.android.material.chip.ChipGroup>
+
+    <Switch
+        android:id="@+id/switchPin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pinned"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="right"
+        />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="right"
+        android:theme="@style/Widget.MaterialComponents.Button.TextButton"/>
+
+
+</LinearLayout>
