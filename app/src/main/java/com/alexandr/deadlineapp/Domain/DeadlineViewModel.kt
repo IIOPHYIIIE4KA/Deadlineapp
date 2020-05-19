@@ -1,20 +1,20 @@
 package com.alexandr.deadlineapp.Domain
 
 import android.app.Application
-import android.provider.SyncStateContract.Helpers.insert
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
+import com.alexandr.deadlineapp.App
 import com.alexandr.deadlineapp.Repository.Database.AppDatabase
 import com.alexandr.deadlineapp.Repository.Database.DAO.DeadlineDAO
 import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
 import kotlinx.coroutines.*
+import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 
-class DeadlineViewModel(app: Application) : AndroidViewModel(app), CoroutineScope {
+class DeadlineViewModel(private val app: Application) : AndroidViewModel(app), CoroutineScope {
     var deadlines: MutableLiveData<List<Deadline>> = MutableLiveData()
     private var database: AppDatabase = AppDatabase.getDatabase(app)
-
     private var deadlinesDAO = database.getDeadlinesDAO()
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
@@ -65,4 +65,6 @@ class DeadlineViewModel(app: Application) : AndroidViewModel(app), CoroutineScop
         super.onCleared()
         job.cancel();
     }
+
+
 }

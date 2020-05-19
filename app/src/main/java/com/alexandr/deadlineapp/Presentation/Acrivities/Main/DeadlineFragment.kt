@@ -1,5 +1,6 @@
 package com.alexandr.deadlineapp.Presentation.Acrivities.Main
 
+import android.app.Application
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
@@ -10,18 +11,21 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alexandr.deadlineapp.App
 import com.alexandr.deadlineapp.Domain.DeadlineViewModel
 import com.alexandr.deadlineapp.Presentation.Adapter.MyDeadlineRecyclerViewAdapter
 import com.alexandr.deadlineapp.R
 import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
 import com.alexandr.deadlineapp.Utils.Utils
+import com.alexandr.deadlineapp.di.component.ViewModelComponent
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.android.synthetic.main.deadline_fragment.*
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 
@@ -31,6 +35,10 @@ class DeadlineFragment : Fragment() {
         fun newInstance() =
             DeadlineFragment()
     }
+
+
+    private var viewModel1: DeadlineViewModel? = null
+        @Inject set
 
     private lateinit var viewModel: DeadlineViewModel
 
@@ -43,9 +51,11 @@ class DeadlineFragment : Fragment() {
         return inflater.inflate(R.layout.deadline_fragment, container, false)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DeadlineViewModel::class.java)
+        createDaggerDependencies()
+        viewModel = ViewModelProviders.of(this).get(DeadlineViewModel::class.java)
         viewModel.requestInformation()
         recycler.layoutManager = LinearLayoutManager(context)
         viewModel.deadlines.observe(viewLifecycleOwner, Observer<List<Deadline>>{
@@ -69,11 +79,6 @@ class DeadlineFragment : Fragment() {
                 }
             }
         })
-        (activity as AppCompatActivity).toolbar?.menu?.add("Очистить базу данных")?.setOnMenuItemClickListener{
-            Toast.makeText(requireContext(), "База данных очищена", Toast.LENGTH_LONG).show()
-            viewModel.deleteInformation()
-            true
-        }
         activity?.imgPinned?.setOnClickListener {
             if (activity?.imgPinned?.contentDescription == "pinned"){
                 activity?.imgPinned?.setImageResource(R.drawable.ic_unpin)
@@ -99,7 +104,7 @@ class DeadlineFragment : Fragment() {
             val time = activity?.editTime?.text.toString()
             val d = Deadline(name = predmet, description = descr, pinned = pinned,
                 date = date, time = time, importance = color)
-            viewModel.saveInformation(d)
+            viewModel?.saveInformation(d)
             (activity as MainActivity?)?.clear()
             Toast.makeText(requireContext(), "Дедлайн добавлен!", Toast.LENGTH_SHORT).show()
             (activity as MainActivity?)?.bottomHide()
@@ -146,6 +151,14 @@ class DeadlineFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+    }
+
+    private fun createDaggerDependencies() {
+        injectDependency((activity?.application as App).getViewModelComponent())
+    }
+
+    private fun injectDependency(component: ViewModelComponent) {
+        component.inject(this)
     }
 
 }

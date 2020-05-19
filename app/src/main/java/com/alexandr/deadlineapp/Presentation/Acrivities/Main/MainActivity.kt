@@ -119,4 +119,5 @@ class MainActivity : AppCompatActivity() {
                 Handler().postDelayed(Runnable { touchtoback-- }, 2000)
         } else { super.onBackPressed(); }
     }
+
 }
