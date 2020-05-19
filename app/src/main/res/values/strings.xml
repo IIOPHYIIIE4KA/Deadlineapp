@@ -21,4 +21,6 @@
     <string name="channel_name">Channel1</string>
     <string name="channel_description">Deadline</string>
     <string name="add">Добавить</string>
+    <string name="title">Дедлайны</string>
+    <string name="pressBack">Нажмите НАЗАД еще раз, чтобы выйти</string>
 </resources>
