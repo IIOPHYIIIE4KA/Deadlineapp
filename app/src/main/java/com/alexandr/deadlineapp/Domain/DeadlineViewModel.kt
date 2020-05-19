@@ -1,12 +1,15 @@
 package com.alexandr.deadlineapp.Domain
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alexandr.deadlineapp.App
 import com.alexandr.deadlineapp.Repository.Database.AppDatabase
 import com.alexandr.deadlineapp.Repository.Database.DAO.DeadlineDAO
 import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
+import com.alexandr.deadlineapp.Repository.DeadlinesRepository
 import kotlinx.coroutines.*
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
@@ -31,10 +34,10 @@ class DeadlineViewModel(private val app: Application) : AndroidViewModel(app), C
 
     fun saveInformation(deadline: Deadline) {
         launch(Dispatchers.Main) {
-            var i = withContext(Dispatchers.IO) {
-                deadlinesDAO.insert(deadline)
+            withContext(Dispatchers.IO) {
+               deadlinesDAO.insert(deadline)
             }
-            deadlines.value = withContext(Dispatchers.Default) {
+            deadlines.value = withContext(Dispatchers.IO) {
                 deadlinesDAO.getAll()
             }
         }
@@ -48,17 +51,25 @@ class DeadlineViewModel(private val app: Application) : AndroidViewModel(app), C
     }
 
     fun deleteOne(deadline: Deadline) {
-        launch (Dispatchers.IO) {
-            deadlinesDAO.delete(deadline)
+        launch(Dispatchers.Main) {
+            withContext(Dispatchers.IO) {
+                deadlinesDAO.delete(deadline)
+            }
+            deadlines.value = withContext(Dispatchers.IO) {
+                deadlinesDAO.getAll()
+            }
         }
-        requestInformation()
     }
 
     fun updateOne(deadline: Deadline) {
-        launch (Dispatchers.IO) {
-            deadlinesDAO.update(deadline)
+        launch(Dispatchers.Main) {
+            withContext(Dispatchers.IO) {
+                deadlinesDAO.update(deadline)
+            }
+            deadlines.value = withContext(Dispatchers.IO) {
+                deadlinesDAO.getAll()
+            }
         }
-        requestInformation()
     }
 
     override fun onCleared() {

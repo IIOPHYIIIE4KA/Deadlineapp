@@ -1,24 +1,18 @@
 package com.alexandr.deadlineapp
 
 import android.app.Application
-import android.widget.Toast
 import androidx.room.Room
 import com.alexandr.deadlineapp.Repository.Database.AppDatabase
 import com.alexandr.deadlineapp.di.component.*
-import com.alexandr.deadlineapp.di.module.ApplicationModule
-import com.alexandr.deadlineapp.di.module.ViewModelModule
-import com.alexandr.deadlineapp.di.module.DAOModule
-import com.alexandr.deadlineapp.di.module.DatabaseModule
+import com.alexandr.deadlineapp.di.module.RoomDatabaseModule
 
 class App: Application() {
-    private lateinit var mApplicationComponent: ApplicationComponent
     private var database: AppDatabase? = null
-    private var viewModelComponent: ViewModelComponent? = null
-    private var DAOComponent: DAOComponent? = null
+    lateinit var deadlineComponent: DeadlineComponent
 
     override fun onCreate() {
         super.onCreate()
-        initRoom()
+        //initRoom()
         initDagger()
     }
 
@@ -28,33 +22,12 @@ class App: Application() {
     }
 
     private fun initDagger() {
-        val daoComponent = DaggerDAOComponent.builder()
-            .dAOModule(DAOModule(this.database!!))
-            .build()
-
-
-        viewModelComponent = DaggerViewModelComponent.builder()
-            .viewModelModule(ViewModelModule(this))
-            .build()
-
-        mApplicationComponent = DaggerApplicationComponent
+        deadlineComponent = DaggerDeadlineComponent
             .builder()
-            .applicationModule(ApplicationModule(this))
-            .databaseModule(DatabaseModule(this))
+            .roomDatabaseModule(RoomDatabaseModule(this))
             .build()
-        mApplicationComponent.inject(this);
     }
 
-    fun getViewModelComponent(): ViewModelComponent {
-        return this.viewModelComponent!!
-    }
 
-    fun getDAOComponent(): DAOComponent {
-        return this.DAOComponent!!
-    }
-
-    fun getAppComponent(): ApplicationComponent{
-        return mApplicationComponent
-    }
 
 }

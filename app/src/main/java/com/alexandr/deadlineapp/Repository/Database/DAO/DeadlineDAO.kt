@@ -1,5 +1,6 @@
 package com.alexandr.deadlineapp.Repository.Database.DAO
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
 
@@ -9,6 +10,11 @@ interface DeadlineDAO {
             "union all Select * from deadlines where (pinned = 0 and  completed = 0) " +
             "union all select * from deadlines where (pinned = 0 and completed = 1)")
     fun getAll(): List<Deadline>
+
+    @Query("Select * from deadlines where (pinned = 1) " +
+            "union all Select * from deadlines where (pinned = 0 and  completed = 0) " +
+            "union all select * from deadlines where (pinned = 0 and completed = 1)")
+    fun getAllLive(): LiveData<List<Deadline>>
 
     @Insert
     fun insert(deadline: Deadline)

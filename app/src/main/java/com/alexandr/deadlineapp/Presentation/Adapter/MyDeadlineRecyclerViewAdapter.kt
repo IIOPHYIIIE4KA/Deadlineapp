@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.alexandr.deadlineapp.Domain.AddDeadlineViewModel
 import com.alexandr.deadlineapp.Domain.DeadlineViewModel
@@ -23,20 +24,25 @@ import com.alexandr.deadlineapp.Presentation.Acrivities.Main.MainActivity
 import com.alexandr.deadlineapp.Presentation.Item.DeadlinesViewHolder
 import com.alexandr.deadlineapp.R
 import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
+import com.alexandr.deadlineapp.Utils.DeadlinesDiffCallback
 import com.alexandr.deadlineapp.Utils.Utils
+import java.util.*
+import kotlin.collections.ArrayList
 
 
-class MyDeadlineRecyclerViewAdapter (val items : ArrayList<Deadline>,
+class MyDeadlineRecyclerViewAdapter (private var items : List<Deadline>,
                                      val context : Context,
-                                     val deadlineViewModel: DeadlineViewModel
+                                     private val deadlineViewModel: DeadlineViewModel
 ) :
     RecyclerView.Adapter<DeadlinesViewHolder>() {
 
-    private var position: Int = -1
 
-    fun getPosition() : Int{
-        return position
+    fun updateBookList(newDeadlinesList: List<Deadline>) {
+        val diffResult = DiffUtil.calculateDiff(DeadlinesDiffCallback(items, newDeadlinesList), false)
+        items = newDeadlinesList
+        diffResult.dispatchUpdatesTo(this)
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeadlinesViewHolder {
         return DeadlinesViewHolder(LayoutInflater.from(context).inflate(R.layout.deadline_card, parent, false))
     }
@@ -46,17 +52,6 @@ class MyDeadlineRecyclerViewAdapter (val items : ArrayList<Deadline>,
     }
 
     override fun onBindViewHolder(holder: DeadlinesViewHolder, position: Int) {
-        holder.predmet?.text = items[position].name.toUpperCase()
-        holder.predmet?.typeface = Typeface.DEFAULT_BOLD;
-        holder.zadanie?.text = items[position].description
-        holder.completed.isChecked = items[position].completed
-        if (items[position].pinned){
-            holder.pinned.visibility = View.VISIBLE
-        }
-        holder.datetime.text = items[position].date + ", " + items[position].time
-        holder.completed.setOnClickListener {
-            (it as RadioButton).isChecked = items[position].completed
-        }
         var color: Int = R.color.white
         if (items[position].pinned) {
             color = R.color.lightgrey
@@ -64,7 +59,7 @@ class MyDeadlineRecyclerViewAdapter (val items : ArrayList<Deadline>,
         if (items[position].completed) {
             color = R.color.lightgreen
         }
-        holder.card.setOnCreateContextMenuListener { menu, _, _ ->
+        val listener = View.OnCreateContextMenuListener { menu, _, _ ->
             if (!items[position].completed) {
                 menu.add("Выполнено").setOnMenuItemClickListener {
                     items[position].completed = true
@@ -97,8 +92,7 @@ class MyDeadlineRecyclerViewAdapter (val items : ArrayList<Deadline>,
                 true
             }
         }
-        holder.card.setCardBackgroundColor(ContextCompat.getColor(context,color))
-
+        holder.setDeadline(items[position],ContextCompat.getColor(context,color), listener)
     }
 
 }

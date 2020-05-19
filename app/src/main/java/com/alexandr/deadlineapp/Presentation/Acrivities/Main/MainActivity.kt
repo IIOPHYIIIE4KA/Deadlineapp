@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import com.alexandr.deadlineapp.Presentation.Item.TimeNotification
 import com.alexandr.deadlineapp.R
 import com.alexandr.deadlineapp.Utils.Utils
@@ -26,13 +27,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
     private var touchtoback: Int = 0
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setToolbar(resources.getString(R.string.title))
         fab.setOnClickListener(this)
         bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_layout)
-        setBottom(bottomSheetBehavior)
+        setBottom()
     }
 
     private fun setToolbar(title: String){
@@ -50,35 +52,36 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         {bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED}
     }
 
-    private fun setBottom(bottomSheetBehavior: BottomSheetBehavior<LinearLayout>){
-        bottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                when (newState) {
-                    BottomSheetBehavior.STATE_HIDDEN -> {
+    private var bottomSheetCallback: BottomSheetBehavior.BottomSheetCallback = object :
+        BottomSheetBehavior.BottomSheetCallback() {
+        override fun onStateChanged(bottomSheet: View, newState: Int) {
+            when (newState) {
+                BottomSheetBehavior.STATE_HIDDEN -> {
 
-                    }
-                    BottomSheetBehavior.STATE_EXPANDED -> {
+                }
+                BottomSheetBehavior.STATE_EXPANDED -> {
 
-                    }
-                    BottomSheetBehavior.STATE_COLLAPSED -> {
-                        clear()
-                    }
-                    BottomSheetBehavior.STATE_DRAGGING -> {
+                }
+                BottomSheetBehavior.STATE_COLLAPSED -> {
+                    clear()
+                }
+                BottomSheetBehavior.STATE_DRAGGING -> {
 
-                    }
-                    BottomSheetBehavior.STATE_SETTLING -> {
-                    }
+                }
+                BottomSheetBehavior.STATE_SETTLING -> {
                 }
             }
-            override fun onSlide(
-                bottomSheet: View,
-                slideOffset: Float
-            ) {
-                fab.animate().scaleX(1 - slideOffset).scaleY(1 - slideOffset).setDuration(0).start();
-            }
-        })
+        }
+        override fun onSlide(
+            bottomSheet: View,
+            slideOffset: Float
+        ) {
+            fab.animate().scaleX(1 - slideOffset).scaleY(1 - slideOffset).setDuration(0).start();
+        }
+    }
 
+    private fun setBottom(){
+        bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback)
         imgCal.setOnClickListener {
             DatePickerDialog(this,
                 DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
