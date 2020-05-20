@@ -52,12 +52,12 @@ class MyDeadlineRecyclerViewAdapter (private var items : List<Deadline>,
     }
 
     override fun onBindViewHolder(holder: DeadlinesViewHolder, position: Int) {
-        var color: Int = R.color.white
+        var color: Int = R.color.defaultChipColor
         if (items[position].pinned) {
-            color = R.color.lightgrey
+            color = R.color.colorCompleted
         }
         if (items[position].completed) {
-            color = R.color.lightgreen
+            color = R.color.colorPinned
         }
         val listener = View.OnCreateContextMenuListener { menu, _, _ ->
             if (!items[position].completed) {

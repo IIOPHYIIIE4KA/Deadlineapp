@@ -7,7 +7,6 @@
     android:orientation="vertical"
     app:contentPadding="0dp"
     android:layout_marginBottom="1dp"
-    style="@style/CardStyleLight"
     app:cardCornerRadius="4dp"
     android:elevation="5dp">
     <LinearLayout
@@ -19,7 +18,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="5dp">
+            android:layout_marginEnd="5dp">
             <RadioButton
                 android:id="@+id/rbComp"
                 android:layout_width="wrap_content"
@@ -39,7 +38,8 @@
                 android:maxLines="3"
                 android:textColor="@color/predmetcolor"
                 android:textStyle="bold"
-                android:textSize="16sp"/>
+                android:fontFamily="sans-serif-medium"
+                android:textSize="14sp"/>
             <TextView
                 android:id="@+id/tvZad"
                 android:layout_width="wrap_content"
@@ -47,9 +47,10 @@
                 android:maxLines="10"
                 android:text="Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание "
                 android:layout_below="@+id/tvPred"
-                android:textColor="@color/descriptionColor"
-                android:layout_marginRight="20dp"
-                android:textSize="14sp"/>
+                android:textColor="@color/textColorPrimary"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="sans-serif-medium"
+                android:textSize="15sp"/>
             <ImageView
                 android:id="@+id/imgPin"
                 android:layout_width="wrap_content"
@@ -67,9 +68,11 @@
                 android:layout_height="wrap_content"
                 android:text="Пн, 01.01.2020, 00:00"
                 android:layout_alignParentEnd="true"
-
+                android:fontFamily="sans-serif-medium"
+                android:textSize="13sp"
                 android:layout_below="@id/tvZad"
-                android:layout_marginTop="5dp"/>
+                android:layout_marginTop="5dp"
+                android:textColor="@color/textColorSecondary"/>
             <ImageView
                 android:id="@+id/imgClock"
                 android:layout_width="wrap_content"
@@ -79,7 +82,7 @@
                 android:adjustViewBounds="true"
                 android:maxWidth="20dp"
                 android:maxHeight="20dp"
-                android:layout_toLeftOf="@id/tvDateTime"
+                android:layout_toStartOf="@id/tvDateTime"
                 android:layout_below="@id/tvZad"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="5dp"/>

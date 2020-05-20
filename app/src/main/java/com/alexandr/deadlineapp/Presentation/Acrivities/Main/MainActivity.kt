@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.alexandr.deadlineapp.Presentation.Item.TimeNotification
 import com.alexandr.deadlineapp.R
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         fab.setOnClickListener(this)
         bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_layout)
         setBottom()
+
     }
 
     private fun setToolbar(title: String){

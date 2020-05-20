@@ -27,7 +27,6 @@ class DeadlinesViewHolder(view : View) : RecyclerView.ViewHolder(view), View.OnC
     fun setDeadline(deadline: Deadline, color: Int, onCreateContextMenuListener: View.OnCreateContextMenuListener){
         this.deadline = deadline
         predmet.text = deadline.name.toUpperCase(Locale.ROOT)
-        predmet.typeface = Typeface.DEFAULT_BOLD;
         zadanie.text = deadline.description
         completed.isChecked = deadline.completed
         if (deadline.pinned){
