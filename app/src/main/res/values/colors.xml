@@ -17,17 +17,7 @@
     <color name="colorSecondaryLight">#69e2ff</color>
     <color name="textColorSecondary">#6E6E6E</color>
 
-    <color name="scheduleBackgroundColor">#F5F5F5</color>
-    <color name="lessonBackground">#FBFBFB</color>
-    <color name="lessonBackgroundRipple">#DEDEDE</color>
-    <color name="lessonHeadDivider">#E6E6E6</color>
-    <color name="lessonIndicator">#00C300</color>
 
-
-    <color name="colorPrimaryDarkmode">#212d3b</color>
-    <color name="colorPrimaryDarkDarkmode">#212d3b</color>
-    <color name="colorAccentDarkmode">#5ea3de</color>
-    <color name="TextColorDarkMode">#ECEBEB</color>
     <color name="bottomColor">#FFFFFF</color>
     <color name="colorHint">#C0C0C0</color>
     <color name="defaultChipColor">#FFFFFF</color>

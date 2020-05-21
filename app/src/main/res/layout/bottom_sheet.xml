@@ -9,29 +9,24 @@
     app:behavior_peekHeight="0dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     android:padding="5dp"
-    android:theme="@style/Theme.MaterialComponents"
-    android:background="@color/colorPrimary">
+    android:theme="@style/Theme.MaterialComponents.DayNight"
+    android:background="@drawable/shape_bottom_sheet">
 
     <EditText android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editPredmet"
         android:inputType="textCapCharacters"
         android:hint="@string/predmet_title"
-        android:textColorHint="@color/colorHint"
-        android:textSize="20sp"
-        android:autofillHints=""
-        android:textColor="@android:color/black"/>
+        android:autofillHints=""/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/editDescription"
-        android:textColorHint="@color/colorHint"
         android:inputType="text"
         android:layout_marginTop="8dp"
         android:hint="@string/deadline_descr"
-        android:autofillHints=""
-        android:textColor="@android:color/black"/>
+        android:autofillHints="" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -44,8 +39,6 @@
             android:layout_weight="0.3"
             android:ems="10"
             android:hint="@string/deadline_date"
-            android:textColorHint="@color/colorHint"
-            android:textColor="@android:color/black"
             android:enabled="false"/>
 
         <ImageView
@@ -65,8 +58,6 @@
             android:ems="10"
             android:inputType="time"
             android:hint="@string/deadline_time"
-            android:textColorHint="@color/colorHint"
-            android:textColor="@android:color/black"
             android:enabled="false"/>
         <ImageView
             android:id="@+id/imgClk"
@@ -109,13 +100,14 @@
             android:layout_height="wrap_content"
             android:text="@string/importanceHigh"/>
     </com.google.android.material.chip.ChipGroup>
+
         <ImageView
             android:id="@+id/imgPinned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_unpin"
             android:adjustViewBounds="true"
-            android:maxWidth="30dp"
+            android:maxWidth="26dp"
             android:maxHeight="30dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="5dp"
@@ -125,9 +117,8 @@
     <Button
         android:id="@+id/btadd"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:text="@string/add"
-        android:background="@android:color/holo_green_light"
-        android:layout_marginBottom="15dp"
-        />
+        android:layout_marginBottom="2dp"
+        app:cornerRadius="7dp"/>
 </LinearLayout>

@@ -14,7 +14,7 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
         //initRoom()
-        initDagger()
+        //initDagger()
         AppCompatDelegate.setDefaultNightMode(
             AppCompatDelegate.MODE_NIGHT_YES);
     }

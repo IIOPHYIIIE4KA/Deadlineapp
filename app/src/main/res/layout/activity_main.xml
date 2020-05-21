@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextColor="@color/textColorPrimary"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -33,6 +34,7 @@
         app:layout_anchor="@+id/bottom_sheet_layout"
         app:layout_anchorGravity="top|end"
         android:src="@drawable/baseline_add_24"
+        style="@style/Theme.MaterialComponents.DayNight"
         app:backgroundTint="@color/colorFab"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

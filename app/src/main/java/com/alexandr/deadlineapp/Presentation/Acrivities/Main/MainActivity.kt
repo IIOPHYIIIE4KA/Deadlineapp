@@ -3,6 +3,7 @@ package com.alexandr.deadlineapp.Presentation.Acrivities.Main
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.Handler
 import android.view.Menu
@@ -39,6 +40,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        when (newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> {}
+            Configuration.UI_MODE_NIGHT_YES -> {}
+        }
+    }
+
     private fun setToolbar(title: String){
         setSupportActionBar(toolbar)
         supportActionBar?.title = title
@@ -50,8 +59,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun bottomHide(){
-        if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_COLLAPSED)
-        {bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED}
+        if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_HIDDEN)
+        {bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN}
     }
 
     private var bottomSheetCallback: BottomSheetBehavior.BottomSheetCallback = object :
@@ -59,13 +68,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         override fun onStateChanged(bottomSheet: View, newState: Int) {
             when (newState) {
                 BottomSheetBehavior.STATE_HIDDEN -> {
-
+                    clear()
                 }
                 BottomSheetBehavior.STATE_EXPANDED -> {
 
                 }
                 BottomSheetBehavior.STATE_COLLAPSED -> {
-                    clear()
+
                 }
                 BottomSheetBehavior.STATE_DRAGGING -> {
 
@@ -83,6 +92,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun setBottom(){
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
         bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallback)
         imgCal.setOnClickListener {
             DatePickerDialog(this,
@@ -164,7 +174,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         touchtoback++
         val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_layout)
         if (bottomSheetBehavior.state !=
-            BottomSheetBehavior.STATE_COLLAPSED
+            BottomSheetBehavior.STATE_HIDDEN
         ) {
             bottomHide()
             touchtoback = 0;
