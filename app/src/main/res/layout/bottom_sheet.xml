@@ -39,7 +39,8 @@
             android:layout_weight="0.3"
             android:ems="10"
             android:hint="@string/deadline_date"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:textColor="@color/textColorPrimary"/>
 
         <ImageView
             android:id="@+id/imgCal"
@@ -58,7 +59,8 @@
             android:ems="10"
             android:inputType="time"
             android:hint="@string/deadline_time"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:textColor="@color/textColorPrimary"/>
         <ImageView
             android:id="@+id/imgClk"
             android:layout_width="wrap_content"

@@ -16,7 +16,7 @@ import kotlin.coroutines.CoroutineContext
 class AddDeadlineViewModel(app: Application) : AndroidViewModel(app), CoroutineScope {
     private var database: AppDatabase = AppDatabase.getDatabase(app)
     var deadline: Deadline? = null
-    var edit: Boolean = false
+    var edit: MutableLiveData<Boolean> = MutableLiveData()
 
     private var deadlinesDao = database.getDeadlinesDAO()
     override val coroutineContext: CoroutineContext
@@ -25,15 +25,15 @@ class AddDeadlineViewModel(app: Application) : AndroidViewModel(app), CoroutineS
     private  val job: Job = Job()
 
 
-    fun saveContact(deadline: Deadline) {
+    fun addDeadline(deadline: Deadline) {
         launch(Dispatchers.IO){
             deadlinesDao.insert(deadline)
         }
     }
 
-    fun updateContact() {
+    fun updateDeadline(deadline: Deadline) {
         launch(Dispatchers.IO){
-            //deadlinesDao.update(deadline)
+            deadlinesDao.update(deadline)
         }
     }
 

@@ -15,66 +15,93 @@ import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 
-class DeadlineViewModel(private val app: Application) : AndroidViewModel(app), CoroutineScope {
+class DeadlineViewModel(private val app: Application) :
+    AndroidViewModel(app)/*, CoroutineScope*/ {
     var deadlines: MutableLiveData<List<Deadline>> = MutableLiveData()
+    var edit : MutableLiveData<Boolean> = MutableLiveData()
+
+    private var deadline : Deadline = Deadline(name = "", date = "", time = "")
     private var database: AppDatabase = AppDatabase.getDatabase(app)
-    private var deadlinesDAO = database.getDeadlinesDAO()
-    override val coroutineContext: CoroutineContext
-        get() = Dispatchers.Main + job
+    private val deadlinesRepository = DeadlinesRepository(database)
+    //private var deadlinesDAO = database.getDeadlinesDAO()
+    //override val coroutineContext: CoroutineContext
+    //    get() = Dispatchers.Main + job
 
-    private val job : Job = Job()
+    var data = deadlinesRepository.getDeadlines()
 
-    fun requestInformation() {
-        launch(Dispatchers.Main) {
+    //private val job : Job = Job()
+
+    fun requestInformation(visible: Boolean) {
+        /*launch(Dispatchers.Main) {
             deadlines.value = withContext(Dispatchers.Default) {
                 deadlinesDAO.getAll()
             }
+        }*/
+        this.data = if (!visible) {
+            deadlinesRepository.getDeadlines()
+        } else {
+            deadlinesRepository.getDeadlinesCurrent()
         }
     }
 
+
     fun saveInformation(deadline: Deadline) {
-        launch(Dispatchers.Main) {
+        /*launch(Dispatchers.Main) {
             withContext(Dispatchers.IO) {
                deadlinesDAO.insert(deadline)
             }
             deadlines.value = withContext(Dispatchers.IO) {
                 deadlinesDAO.getAll()
             }
-        }
+        }*/
+        deadlinesRepository.insertDeadline(deadline)
     }
 
     fun deleteInformation() {
-        launch (Dispatchers.IO) {
+        /*launch (Dispatchers.IO) {
             deadlinesDAO.deleteList(deadlines.value as List<Deadline>)
         }
-        requestInformation()
+        requestInformation()*/
+        deadlinesRepository.deleteDeadline(deadline)
     }
 
     fun deleteOne(deadline: Deadline) {
-        launch(Dispatchers.Main) {
+        /*launch(Dispatchers.Main) {
             withContext(Dispatchers.IO) {
                 deadlinesDAO.delete(deadline)
             }
             deadlines.value = withContext(Dispatchers.IO) {
                 deadlinesDAO.getAll()
             }
-        }
+        }*/
+        deadlinesRepository.deleteDeadline(deadline)
     }
 
     fun updateOne(deadline: Deadline) {
-        launch(Dispatchers.Main) {
+        /*launch(Dispatchers.Main) {
             withContext(Dispatchers.IO) {
                 deadlinesDAO.update(deadline)
             }
             deadlines.value = withContext(Dispatchers.IO) {
                 deadlinesDAO.getAll()
             }
-        }
+        }*/
+        deadlinesRepository.updateDeadline(deadline)
+        edit.value = false
     }
 
+    fun edit(d: Deadline) {
+        this.deadline = d
+        edit.value = true
+    }
+
+    fun getDeadline() : Deadline {
+        return this.deadline
+    }
     override fun onCleared() {
         super.onCleared()
-        job.cancel();
+        //job.cancel()
+        deadlinesRepository.cancel()
     }
 
 

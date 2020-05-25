@@ -20,6 +20,6 @@
 
     <color name="bottomColor">#FFFFFF</color>
     <color name="colorHint">#C0C0C0</color>
-    <color name="defaultChipColor">#FFFFFF</color>
+    <color name="defaultCardColor">#FFFFFF</color>
     <color name="colorFab">#5ea3de</color>
 </resources>

@@ -13,7 +13,7 @@ import kotlin.coroutines.CoroutineContext
 
 class DeadlinesViewModel(private val deadlinesRepository: DeadlinesRepository)
     : ViewModel() {
-    var deadlines: MutableLiveData<List<Deadline>> = MutableLiveData()
+    var deadlines: LiveData<List<Deadline>> = MutableLiveData()
 
 
     fun getInformation(): LiveData<List<Deadline>> {

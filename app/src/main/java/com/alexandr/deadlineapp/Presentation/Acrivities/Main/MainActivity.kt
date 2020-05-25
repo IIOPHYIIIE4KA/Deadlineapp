@@ -9,26 +9,34 @@ import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
+import com.alexandr.deadlineapp.App
+import com.alexandr.deadlineapp.Domain.AddDeadlineViewModel
+import com.alexandr.deadlineapp.Domain.DeadlineViewModel
+import com.alexandr.deadlineapp.Domain.DeadlinesViewModel
 import com.alexandr.deadlineapp.Presentation.Item.TimeNotification
 import com.alexandr.deadlineapp.R
 import com.alexandr.deadlineapp.Utils.Utils
+import com.alexandr.deadlineapp.di.factory.DeadlineViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_sheet.*
 import java.util.*
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
-    private var touchtoback: Int = 0
-
+    private lateinit var bottomSheetBehavior : BottomSheetBehavior<LinearLayout>
+    private var touchtoback : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,30 +45,78 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         fab.setOnClickListener(this)
         bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_layout)
         setBottom()
-
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         when (newConfig.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> {}
-            Configuration.UI_MODE_NIGHT_YES -> {}
+            Configuration.UI_MODE_NIGHT_NO -> {
+                this.recreate()
+            }
+            Configuration.UI_MODE_NIGHT_YES -> {
+                this.recreate()
+            }
         }
     }
 
+    fun changeColorsDark(){
+        bottom_sheet_layout.background = ContextCompat.getDrawable(this, R.color.bottomColor)
+        mainAct.background = ContextCompat.getDrawable(this, android.R.color.background_dark)
+        toolbar.background = ContextCompat.getDrawable(this, R.color.colorPrimary)
+        toolbar.setTitleTextColor(resources.getColor(R.color.textColorPrimary, theme))
+        this.window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        this.window.statusBarColor = resources.getColor(R.color.colorPrimaryDark, theme)
+        this.window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        editPredmet.setTextColor(resources.getColor(R.color.textColorPrimary, theme))
+        editPredmet.setHintTextColor(resources.getColor(R.color.colorHint, theme))
+        chipLow.setTextColor(resources.getColor(R.color.textColorPrimary, theme))
+        chipMedium.setTextColor(resources.getColor(R.color.textColorPrimary, theme))
+        chipHigh.setTextColor(resources.getColor(R.color.textColorPrimary, theme))
+    }
+
+    fun changeColorsLight(){
+        bottom_sheet_layout.background = ContextCompat.getDrawable(this, R.color.bottomColor)
+        mainAct.background = ContextCompat.getDrawable(this, android.R.color.background_light)
+        toolbar.background = ContextCompat.getDrawable(this, R.color.colorPrimary)
+        toolbar.setTitleTextColor(resources.getColor(R.color.textColorPrimary, theme))
+        this.window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        this.window.statusBarColor = resources.getColor(R.color.colorPrimaryDark, theme)
+        this.window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        editPredmet.setTextColor(resources.getColor(R.color.textColorPrimary, theme))
+        editPredmet.setHintTextColor(resources.getColor(R.color.colorHint, theme))
+    }
     private fun setToolbar(title: String){
         setSupportActionBar(toolbar)
         supportActionBar?.title = title
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menuWhite -> {
+                    AppCompatDelegate.setDefaultNightMode(
+                        AppCompatDelegate.MODE_NIGHT_NO);
+                }
+                R.id.menuBlack -> {
+                    AppCompatDelegate.setDefaultNightMode(
+                        AppCompatDelegate.MODE_NIGHT_YES);
+                }
+            }
+            true
+        }
     }
 
     fun bottomShow(){
         if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED)
-        {bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED}
+        {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
     }
 
     fun bottomHide(){
         if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_HIDDEN)
-        {bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN}
+        {
+            val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(bottom_sheet_layout.windowToken, 0)
+            Handler().postDelayed(Runnable { bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN }, 200)
+        }
     }
 
     private var bottomSheetCallback: BottomSheetBehavior.BottomSheetCallback = object :
@@ -68,7 +124,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         override fun onStateChanged(bottomSheet: View, newState: Int) {
             when (newState) {
                 BottomSheetBehavior.STATE_HIDDEN -> {
-                    clear()
+                    fab.animate().scaleX(1.toFloat()).scaleY(1.toFloat()).setDuration(0).start()
                 }
                 BottomSheetBehavior.STATE_EXPANDED -> {
 
@@ -100,12 +156,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                     val c = Calendar.getInstance()
                     c.set(year,monthOfYear,dayOfMonth)
                     var date: String = "${Utils.WeekDay(c.get(Calendar.DAY_OF_WEEK))}, ${year}."
-                    date += if (monthOfYear<10){
-                        "0${monthOfYear}."
-                    } else { "${monthOfYear}." }
-                    date += if (dayOfMonth<10){
-                        "0${dayOfMonth}"
-                    } else { "$dayOfMonth"   }
+                    date += if (monthOfYear<10) "0${monthOfYear}." else "${monthOfYear}."
+                    date += if (dayOfMonth<10) "0${dayOfMonth}" else "$dayOfMonth"
                     editDate.setText(date)
                 }, Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
@@ -115,12 +167,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         imgClk.setOnClickListener {
             TimePickerDialog(this,
                 TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
-                    var time: String = if (hourOfDay<10){
-                        "0${hourOfDay}:"
-                    } else { "${hourOfDay}:" }
-                    time += if (minute<10){
-                        "0${minute}"
-                    } else { "$minute" }
+                    var time: String = if (hourOfDay<10) "0${hourOfDay}:" else "${hourOfDay}:"
+                    time += if (minute<10) "0${minute}" else "$minute"
                     editTime.setText(time)
                 }, Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
                 Calendar.getInstance().get(Calendar.MINUTE),true).show()
@@ -135,6 +183,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 it.contentDescription = "pinned"
             }
         }
+
     }
 
     fun clear(){

@@ -8,20 +8,16 @@ import com.alexandr.deadlineapp.di.component.*
 import com.alexandr.deadlineapp.di.module.RoomDatabaseModule
 
 class App: Application() {
-    private var database: AppDatabase? = null
-    lateinit var deadlineComponent: DeadlineComponent
 
+    lateinit var deadlineComponent : DeadlineComponent
+
+    val s: String = "12344"
     override fun onCreate() {
         super.onCreate()
         //initRoom()
-        //initDagger()
+        initDagger()
         AppCompatDelegate.setDefaultNightMode(
-            AppCompatDelegate.MODE_NIGHT_YES);
-    }
-
-    private fun initRoom() {
-        database = Room.databaseBuilder(this,AppDatabase::class.java, "database")
-            .build()
+            AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
     }
 
     private fun initDagger() {

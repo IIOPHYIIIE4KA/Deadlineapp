@@ -32,13 +32,13 @@ import kotlin.collections.ArrayList
 
 class MyDeadlineRecyclerViewAdapter (private var items : List<Deadline>,
                                      val context : Context,
-                                     private val deadlineViewModel: DeadlineViewModel
+                                     private val deadlineViewModel : DeadlineViewModel
 ) :
     RecyclerView.Adapter<DeadlinesViewHolder>() {
 
 
     fun updateBookList(newDeadlinesList: List<Deadline>) {
-        val diffResult = DiffUtil.calculateDiff(DeadlinesDiffCallback(items, newDeadlinesList), false)
+        val diffResult = DiffUtil.calculateDiff(DeadlinesDiffCallback(items, newDeadlinesList), true)
         items = newDeadlinesList
         diffResult.dispatchUpdatesTo(this)
     }
@@ -52,7 +52,7 @@ class MyDeadlineRecyclerViewAdapter (private var items : List<Deadline>,
     }
 
     override fun onBindViewHolder(holder: DeadlinesViewHolder, position: Int) {
-        var color: Int = R.color.defaultChipColor
+        var color: Int = R.color.defaultCardColor
         if (items[position].pinned) {
             color = R.color.colorCompleted
         }
@@ -82,7 +82,7 @@ class MyDeadlineRecyclerViewAdapter (private var items : List<Deadline>,
                     }
                 }
                 menu.add("Редактировать").setOnMenuItemClickListener {
-                    //addDeadlineViewModel.edit = true
+                    deadlineViewModel.edit(items[position])
                     true
                 }
             }
