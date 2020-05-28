@@ -10,7 +10,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
@@ -33,10 +32,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setToolbar(resources.getString(R.string.title))
-        fab.setOnClickListener(this)
-        bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_layout)
-        setBottom()
+        //setToolbar(resources.getString(R.string.title))
+        //fab.setOnClickListener(this)
+        //bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_layout)
+        //setBottom()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -51,7 +50,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun changeColorsDark(){
+    /*fun changeColorsDark(){
         bottom_sheet_layout.background = ContextCompat.getDrawable(this, R.color.bottomColor)
         mainAct.background = ContextCompat.getDrawable(this, android.R.color.background_dark)
         toolbar.background = ContextCompat.getDrawable(this, R.color.colorPrimary)
@@ -209,26 +208,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             intent, PendingIntent.FLAG_CANCEL_CURRENT)
         //am.cancel(pendingIntent)
         am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), pendingIntent)
-    }
+    }*/
 
     override fun onBackPressed() {
         touchtoback++
-        val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_layout)
+        /*val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet_layout)
         if (bottomSheetBehavior.state !=
             BottomSheetBehavior.STATE_HIDDEN
         ) {
             bottomHide()
             touchtoback = 0;
             return;
-        }
+        }*/
         if (touchtoback == 1) {
                 Toast.makeText(this, resources.getString(R.string.pressBack), Toast.LENGTH_SHORT).show()
-                Handler().postDelayed(Runnable { touchtoback-- }, 2000)
+                Handler().postDelayed({ touchtoback-- }, 2000)
         } else { super.onBackPressed(); }
     }
 
     override fun onClick(v: View?) {
-        bottomShow()
+        //bottomShow()
     }
 
 }

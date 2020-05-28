@@ -24,4 +24,5 @@
     <string name="title">Дедлайны</string>
     <string name="pressBack">Нажмите НАЗАД еще раз, чтобы выйти</string>
     <string name="updateButton">Обновить</string>
+    <string name="emptyList">Дедлайнов нет :(</string>
 </resources>

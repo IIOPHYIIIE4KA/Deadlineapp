@@ -39,9 +39,9 @@
             android:layout_weight="0.3"
             android:ems="10"
             android:hint="@string/deadline_date"
-            android:enabled="false"
-            android:textColor="@color/textColorPrimary"/>
-
+            android:focusable="false"
+            android:inputType="date"
+            android:autofillHints="" />
         <ImageView
             android:id="@+id/imgCal"
             android:layout_width="wrap_content"
@@ -59,8 +59,8 @@
             android:ems="10"
             android:inputType="time"
             android:hint="@string/deadline_time"
-            android:enabled="false"
-            android:textColor="@color/textColorPrimary"/>
+            android:focusable="false"
+            android:autofillHints="" />
         <ImageView
             android:id="@+id/imgClk"
             android:layout_width="wrap_content"
@@ -69,7 +69,7 @@
             android:adjustViewBounds="true"
             android:maxWidth="30dp"
             android:maxHeight="30dp"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center" />
     </LinearLayout>
 
     <RelativeLayout
