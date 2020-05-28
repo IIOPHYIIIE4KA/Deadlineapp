@@ -17,21 +17,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.ItemTouchHelper
-import com.alexandr.deadlineapp.App
-import com.alexandr.deadlineapp.Domain.AddDeadlineViewModel
-import com.alexandr.deadlineapp.Domain.DeadlineViewModel
-import com.alexandr.deadlineapp.Domain.DeadlinesViewModel
 import com.alexandr.deadlineapp.Presentation.Item.TimeNotification
 import com.alexandr.deadlineapp.R
 import com.alexandr.deadlineapp.Utils.Utils
-import com.alexandr.deadlineapp.di.factory.DeadlineViewModelFactory
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.bottom_sheet.*
 import java.util.*
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -115,7 +107,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         {
             val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(bottom_sheet_layout.windowToken, 0)
-            Handler().postDelayed(Runnable { bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN }, 200)
+            Handler().postDelayed(Runnable { bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN }, 50)
         }
     }
 

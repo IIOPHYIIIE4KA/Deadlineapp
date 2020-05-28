@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.alexandr.deadlineapp.R
 import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
 import kotlinx.android.synthetic.main.deadline_card.view.*
-import kotlinx.android.synthetic.main.dialog_add.view.*
 import java.util.*
 
 class DeadlinesViewHolder(view : View) : RecyclerView.ViewHolder(view), View.OnClickListener {

@@ -5,16 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import com.alexandr.deadlineapp.Repository.Database.AppDatabase
 import com.alexandr.deadlineapp.Repository.Database.DAO.DeadlineDAO
 import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
 class DeadlinesRepository(appDatabase: AppDatabase): CoroutineScope {
 
     override val coroutineContext: CoroutineContext
         get() = Dispatchers.Main + job
+
+    val foundData: MutableLiveData<List<Deadline>> = MutableLiveData()
 
     private val job : Job = Job()
 
@@ -26,6 +25,14 @@ class DeadlinesRepository(appDatabase: AppDatabase): CoroutineScope {
 
     fun getDeadlinesCurrent(): LiveData<List<Deadline>> {
         return deadlineDAO.getAllCurrentLive()
+    }
+
+    fun findItem(name: String) {
+        launch(Dispatchers.Main) {
+            foundData.value = withContext(Dispatchers.IO) {
+                deadlineDAO.findDeadline(name)
+            }
+        }
     }
 
     fun insertDeadline(deadline: Deadline) {

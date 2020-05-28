@@ -1,33 +1,17 @@
 package com.alexandr.deadlineapp.Presentation.Adapter
 
 
-import android.R.menu
 import android.content.Context
-import android.graphics.Typeface
-import android.util.Log
 import android.view.*
-import android.widget.PopupMenu
-import android.widget.RadioButton
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.NavHostFragment.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.alexandr.deadlineapp.Domain.AddDeadlineViewModel
 import com.alexandr.deadlineapp.Domain.DeadlineViewModel
-import com.alexandr.deadlineapp.Presentation.Acrivities.Main.MainActivity
 import com.alexandr.deadlineapp.Presentation.Item.DeadlinesViewHolder
 import com.alexandr.deadlineapp.R
 import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
 import com.alexandr.deadlineapp.Utils.DeadlinesDiffCallback
-import com.alexandr.deadlineapp.Utils.Utils
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class MyDeadlineRecyclerViewAdapter (private var items : List<Deadline>,

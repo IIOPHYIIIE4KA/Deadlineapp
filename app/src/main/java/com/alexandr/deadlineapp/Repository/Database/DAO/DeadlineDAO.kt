@@ -21,6 +21,9 @@ interface DeadlineDAO {
             "union all Select * from deadlines where (pinned = 0 and  completed = 0)")
     fun getAllCurrentLive(): LiveData<List<Deadline>>
 
+    @Query("Select * from deadlines where name like :predmet")
+    fun findDeadline(predmet: String): List<Deadline>
+
     @Insert
     fun insert(deadline: Deadline)
 

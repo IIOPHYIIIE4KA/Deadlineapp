@@ -1,8 +1,11 @@
 package com.alexandr.deadlineapp.Domain
 
+import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alexandr.deadlineapp.App
@@ -27,21 +30,18 @@ class DeadlineViewModel(private val app: Application) :
     //override val coroutineContext: CoroutineContext
     //    get() = Dispatchers.Main + job
 
-    var data = deadlinesRepository.getDeadlines()
+    val data = deadlinesRepository.getDeadlines()
+    val dataCurrent = deadlinesRepository.getDeadlinesCurrent()
+    val foundData =  deadlinesRepository.foundData
 
     //private val job : Job = Job()
 
-    fun requestInformation(visible: Boolean) {
+    fun requestInformation() {
         /*launch(Dispatchers.Main) {
             deadlines.value = withContext(Dispatchers.Default) {
                 deadlinesDAO.getAll()
             }
         }*/
-        this.data = if (!visible) {
-            deadlinesRepository.getDeadlines()
-        } else {
-            deadlinesRepository.getDeadlinesCurrent()
-        }
     }
 
 
@@ -98,11 +98,26 @@ class DeadlineViewModel(private val app: Application) :
     fun getDeadline() : Deadline {
         return this.deadline
     }
+
     override fun onCleared() {
         super.onCleared()
         //job.cancel()
         deadlinesRepository.cancel()
     }
 
+    fun find(name: String) {
+        deadlinesRepository.findItem(name)
+    }
 
+    fun clearObserveData(a: LifecycleOwner) {
+        data.removeObservers(a)
+    }
+
+    fun clearObserveDataCur(a: LifecycleOwner) {
+        dataCurrent.removeObservers(a)
+    }
+
+    fun clearObserveFind(a: LifecycleOwner) {
+        foundData.removeObservers(a)
+    }
 }

@@ -6,4 +6,6 @@
         android:id="@+id/menuWhite"/>
     <item android:title="Black"
         android:id="@+id/menuBlack"/>
+    <item android:title="Скрыть/показать выполненные"
+        android:id="@+id/menuShow"/>
 </menu>
