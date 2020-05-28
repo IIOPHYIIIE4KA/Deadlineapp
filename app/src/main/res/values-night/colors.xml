@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="predmetcolor">#0093CE</color>
+    <color name="colorLow">#26E910</color>
+    <color name="colorMedium">#FFCB0F</color>
+    <color name="colorHigh">#DB0C0C</color>
+    <color name="colorCompleted">#191919</color>
+    <color name="colorPinned">#1E1E22</color>
+
+    <color name="textColorSecondary">#AAAAAA</color>
+    <color name="colorPrimary">#121212</color>
+    <color name="colorPrimaryDark">#0c0c0c</color>
+    <color name="colorAccent">#5ea3de</color>
+    <color name="textColorPrimary">#ECEBEB</color>
+    <color name="colorHint">#C0C0C0</color>
+    <color name="defaultCardColor">#1e1e1e</color>
+    <color name="bottomColor">#121212</color>
+</resources>

@@ -1,0 +1,17 @@
+<resources xmlns:app="http://schemas.android.com/apk/res-auto">
+    <style name="AppThemeDayNight" parent="Theme.MaterialComponents.DayNight">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/bottomColor</item>
+        <item name="android:datePickerDialogTheme">@style/Dialog.Theme</item>
+        <item name="android:timePickerDialogTheme">@style/Dialog.Theme</item>
+    </style>
+    <style name="Dialog.Theme" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="colorPrimary">@color/textColorPrimary</item>
+    </style>
+    <style name="AppThemeDayNight.ActionBar" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="actionMenuTextColor">@color/textColorPrimary</item>
+    </style>
+</resources>
