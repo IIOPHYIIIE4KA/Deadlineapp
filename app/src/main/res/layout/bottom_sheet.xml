@@ -8,30 +8,58 @@
     app:behavior_hideable="true"
     app:behavior_peekHeight="0dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-    android:padding="5dp"
+    android:padding="10dp"
     android:theme="@style/Theme.MaterialComponents.DayNight"
     android:background="@drawable/shape_bottom_sheet">
-
-    <EditText android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editPredmet"
-        android:inputType="textCapCharacters"
-        android:hint="@string/predmet_title"
-        android:autofillHints=""/>
-
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editDescription"
-        android:inputType="text"
-        android:layout_marginTop="8dp"
-        android:hint="@string/deadline_descr"
-        android:autofillHints="" />
+        android:layout_marginTop="8dp">
+
+        <ImageView
+            android:id="@+id/imgPr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_library_books_black_24dp"/>
+
+        <EditText android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editPredmet"
+            android:inputType="textCapCharacters"
+            android:hint="@string/predmet_title"
+            android:autofillHints=""
+            android:background="@android:color/transparent"
+            android:layout_marginStart="15dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp">
+        <ImageView
+            android:id="@+id/imgDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_sort_black_24dp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/editDescription"
+            android:inputType="text"
+            android:hint="@string/deadline_descr"
+            android:autofillHints=""
+            android:background="@android:color/transparent"
+            android:layout_marginStart="15dp"/>
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="18dp">
+        <ImageView
+            android:id="@+id/imgCal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_date_range_24"/>
         <EditText
             android:id="@+id/editDate"
             android:layout_width="match_parent"
@@ -41,16 +69,21 @@
             android:hint="@string/deadline_date"
             android:focusable="false"
             android:inputType="date"
-            android:autofillHints="" />
+            android:autofillHints=""
+            android:background="@android:color/transparent"
+            android:layout_marginStart="15dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="18dp">
         <ImageView
-            android:id="@+id/imgCal"
+            android:id="@+id/imgClk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_cal"
-            android:adjustViewBounds="true"
-            android:maxWidth="30dp"
-            android:maxHeight="30dp"
-            android:layout_gravity="center"/>
+            android:src="@drawable/baseline_access_time_24"
+            android:layout_gravity="center" />
         <EditText
             android:id="@+id/editTime"
             android:layout_width="match_parent"
@@ -60,27 +93,19 @@
             android:inputType="time"
             android:hint="@string/deadline_time"
             android:focusable="false"
-            android:autofillHints="" />
-        <ImageView
-            android:id="@+id/imgClk"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_clk"
-            android:adjustViewBounds="true"
-            android:maxWidth="30dp"
-            android:maxHeight="30dp"
-            android:layout_gravity="center" />
+            android:autofillHints=""
+            android:background="@android:color/transparent"
+            android:layout_marginStart="15dp"/>
     </LinearLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
     <com.google.android.material.chip.ChipGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/chipGr"
-        android:layout_marginTop="8dp"
         app:singleSelection="true"
         app:checkedChip="@id/chipLow">
 
@@ -107,20 +132,19 @@
             android:id="@+id/imgPinned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_unpin"
+            android:src="@drawable/ic_push_unpin_24px"
             android:adjustViewBounds="true"
             android:maxWidth="26dp"
             android:maxHeight="30dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="5dp"
             android:contentDescription="unpinned"
-            android:layout_marginVertical="17dp"/>
+            android:layout_centerInParent="true"/>
     </RelativeLayout>
     <Button
         android:id="@+id/btadd"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:text="@string/add"
-        android:layout_marginBottom="2dp"
         app:cornerRadius="7dp"/>
 </LinearLayout>

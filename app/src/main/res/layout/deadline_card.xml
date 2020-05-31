@@ -17,8 +17,7 @@
         android:background="?android:selectableItemBackground">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="5dp">
+            android:layout_height="match_parent">
             <RadioButton
                 android:id="@+id/rbComp"
                 android:layout_width="wrap_content"
@@ -36,33 +35,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ"
-                android:maxLines="3"
+                android:maxLines="1"
                 android:textColor="@color/predmetcolor"
                 android:textStyle="bold"
                 android:fontFamily="sans-serif-medium"
-                android:textSize="14sp"/>
+                android:textSize="14sp"
+                android:layout_marginStart="5dp"
+                android:ellipsize="end"/>
             <TextView
                 android:id="@+id/tvZad"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:maxLines="10"
+                android:maxLines="5"
                 android:text="Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание "
                 android:layout_below="@+id/tvPred"
                 android:textColor="@color/textColorPrimary"
                 android:layout_marginEnd="20dp"
                 android:fontFamily="sans-serif-medium"
-                android:textSize="15sp"/>
+                android:textSize="15sp"
+                android:layout_marginStart="5dp"
+                android:ellipsize="end"/>
             <ImageView
                 android:id="@+id/imgPin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_pin"
+                android:src="@drawable/ic_push_pin_24px"
                 android:visibility="invisible"
                 android:adjustViewBounds="true"
                 android:maxWidth="20dp"
                 android:maxHeight="20dp"
-                android:layout_below="@id/tvZad"
-                android:layout_marginTop="5dp"/>
+                android:layout_below="@id/tvZad"/>
             <TextView
                 android:id="@+id/tvDateTime"
                 android:layout_width="wrap_content"

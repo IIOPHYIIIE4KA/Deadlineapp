@@ -19,8 +19,9 @@ class DeadlinesViewHolder(view : View) : RecyclerView.ViewHolder(view), View.OnC
     val completed = view.rbComp
     val pinned = view.imgPin
     val datetime = view.tvDateTime
-    val importance : Int? = com.alexandr.deadlineapp.R.color.colorLow
+    val importance : Int? = R.color.colorLow
     val card = view.card
+    val img = view.imgClock
     private lateinit var deadline: Deadline
 
     fun setDeadline(deadline: Deadline, color: Int, onCreateContextMenuListener: View.OnCreateContextMenuListener){
@@ -32,7 +33,22 @@ class DeadlinesViewHolder(view : View) : RecyclerView.ViewHolder(view), View.OnC
             pinned.visibility = View.VISIBLE
         }
         else  { pinned.visibility = View.INVISIBLE }
-        datetime.text =  "${deadline.date}, ${deadline.time}"
+        if (deadline.date == "") {
+             datetime.text = if (deadline.time == "") "" else deadline.time
+        } else {
+             datetime.text = if (deadline.time == "") deadline.date else "${deadline.date}, ${deadline.time}"
+        }
+        when (deadline.importance) {
+            R.color.colorLow -> {
+                img.setImageResource(R.drawable.ic_access_alarm_low_24dp)
+            }
+            R.color.colorMedium -> {
+                img.setImageResource(R.drawable.ic_access_alarm_medium_24dp)
+            }
+            R.color.colorHigh -> {
+                img.setImageResource(R.drawable.ic_access_alarm_high_24dp)
+            }
+        }
         completed.setOnClickListener(this)
         card.setCardBackgroundColor(color)
         card.setOnCreateContextMenuListener(onCreateContextMenuListener)
@@ -40,7 +56,7 @@ class DeadlinesViewHolder(view : View) : RecyclerView.ViewHolder(view), View.OnC
 
     override fun onClick(v: View?) {
         if (v?.id == R.id.rbComp)
-        {(v as RadioButton).isChecked = deadline?.completed ?:false }
+        {(v as RadioButton).isChecked = deadline.completed}
     }
 
     fun getDeadline(): Deadline {

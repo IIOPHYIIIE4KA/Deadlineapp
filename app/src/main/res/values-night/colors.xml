@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="predmetcolor">#0093CE</color>
-    <color name="colorLow">#26E910</color>
-    <color name="colorMedium">#FFCB0F</color>
-    <color name="colorHigh">#DB0C0C</color>
+    <color name="colorLow">#CC26E910</color>
+    <color name="colorMedium">#CCFFCB0F</color>
+    <color name="colorHigh">#CCDB0C0C</color>
     <color name="colorCompleted">#191919</color>
     <color name="colorPinned">#1E1E22</color>
 

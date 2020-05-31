@@ -1,9 +1,7 @@
 package com.alexandr.deadlineapp.Presentation.Acrivities.Main
 
-import android.app.Activity
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -14,7 +12,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -113,7 +110,7 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
         })
     }
 
-    fun defaultData() {
+    private fun defaultData() {
         viewModel.data.observe(viewLifecycleOwner, Observer {
             if (recycler.adapter == null) {
                 recycler.adapter =
@@ -125,7 +122,7 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
             } else {
                 (recycler.adapter as MyDeadlineRecyclerViewAdapter).updateBookList(it)
             }
-            noDeadlines((recycler.adapter as MyDeadlineRecyclerViewAdapter).itemCount == 0)
+            noDeadlines((recycler.adapter as MyDeadlineRecyclerViewAdapter).itemCount != 0)
         })
     }
 
@@ -135,19 +132,19 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
             DataType.FULL -> {
                 viewModel.data.observe(viewLifecycleOwner, Observer {
                     (recycler.adapter as MyDeadlineRecyclerViewAdapter).updateBookList(it)
-                    noDeadlines((recycler.adapter as MyDeadlineRecyclerViewAdapter).itemCount == 0)
+                    noDeadlines((recycler.adapter as MyDeadlineRecyclerViewAdapter).itemCount != 0)
                 })
             }
             DataType.FIND -> {
                 viewModel.foundData.observe(viewLifecycleOwner, Observer {
                     (recycler.adapter as MyDeadlineRecyclerViewAdapter).updateBookList(it)
-                    noDeadlines((recycler.adapter as MyDeadlineRecyclerViewAdapter).itemCount == 0)
+                    noDeadlines((recycler.adapter as MyDeadlineRecyclerViewAdapter).itemCount != 0)
                 })
             }
             DataType.NOTCOMP -> {
                 viewModel.dataCurrent.observe(viewLifecycleOwner, Observer {
                     (recycler.adapter as MyDeadlineRecyclerViewAdapter).updateBookList(it)
-                    noDeadlines((recycler.adapter as MyDeadlineRecyclerViewAdapter).itemCount == 0)
+                    noDeadlines((recycler.adapter as MyDeadlineRecyclerViewAdapter).itemCount != 0)
                 })
             }
         }
@@ -173,8 +170,8 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
         })
     }
 
-    fun noDeadlines(t: Boolean) {
-        textViewEmpty.visibility = if (!t) View.GONE else View.VISIBLE
+    private fun noDeadlines(t: Boolean) {
+        textViewEmpty.visibility = if (t) View.GONE else View.VISIBLE
     }
 
     private var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
@@ -203,6 +200,10 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         val predmet =  editPredmet.text.toString()
         val descr = editDescription.text.toString()
+        if (descr.isEmpty()) {
+            Toast.makeText(requireContext(), R.string.predmetError, Toast.LENGTH_SHORT).show()
+            return
+        }
         var color: Int = R.color.colorLow
         if (chipMedium.isChecked) {
             color = R.color.colorMedium
@@ -216,7 +217,7 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
         val d = Deadline(name = predmet, description = descr, pinned = pinned,
             date = date, time = time, importance = color)
         viewModel.saveInformation(d)
-        Toast.makeText(requireContext(), "Дедлайн добавлен!", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(requireContext(), "Дедлайн добавлен!", Toast.LENGTH_SHORT).show()
         bottomHide()
         clear()
     }
@@ -257,9 +258,10 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
             DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 val c = Calendar.getInstance()
                 c.set(year,monthOfYear,dayOfMonth)
-                var date = "${Utils.WeekDay(c.get(Calendar.DAY_OF_WEEK))}, ${year}."
+                var date = "${Utils.WeekDay(c.get(Calendar.DAY_OF_WEEK))}, "
+                date += if (dayOfMonth<10) "0${dayOfMonth}." else "${dayOfMonth}."
                 date += if (monthOfYear<10) "0${monthOfYear}." else "${monthOfYear}."
-                date += if (dayOfMonth<10) "0${dayOfMonth}" else "$dayOfMonth"
+                date += "$year"
                 editDate.setText(date)
             }, Calendar.getInstance().get(Calendar.YEAR),
             Calendar.getInstance().get(Calendar.MONTH),
@@ -286,25 +288,26 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
         editTime.setOnClickListener {
             timePickerDialog.show()
         }
+
         imgClk.setOnClickListener {
             timePickerDialog.show()
         }
 
         imgPinned.setOnClickListener { it as ImageView
             if (it.contentDescription == "pinned"){
-                it.setImageResource(R.drawable.ic_unpin)
+                it.setImageResource(R.drawable.ic_push_unpin_24px)
                 it.contentDescription = "unpinned"
             } else {
-                it.setImageResource(R.drawable.ic_pin)
+                it.setImageResource(R.drawable.ic_push_pin_24px)
                 it.contentDescription = "pinned"
             }
         }
         btadd.setOnClickListener(this)
         chipGr.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
-                R.id.chipLow -> { if (!chipLow.isChecked) chipLow.isChecked = true }
-                R.id.chipMedium -> { if (!chipMedium.isChecked) chipMedium.isChecked = true }
-                R.id.chipHigh -> { if (!chipHigh.isChecked) chipHigh.isChecked = true }
+                R.id.chipLow -> {  }
+                R.id.chipMedium -> {  }
+                R.id.chipHigh -> {  }
                 else -> chipLow.isChecked = true
             }
         }
@@ -315,13 +318,14 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
         override fun onStateChanged(bottomSheet: View, newState: Int) {
             when (newState) {
                 BottomSheetBehavior.STATE_HIDDEN -> {
-                    fab.animate().scaleX(1.toFloat()).scaleY(1.toFloat()).setDuration(0).start()
+
                 }
                 BottomSheetBehavior.STATE_EXPANDED -> {
 
                 }
                 BottomSheetBehavior.STATE_COLLAPSED -> {
-
+                    val imm = getSystemService(requireContext(), InputMethodManager::class.java)
+                    imm?.hideSoftInputFromWindow(bottom_sheet_layout.windowToken, 0)
                 }
                 BottomSheetBehavior.STATE_DRAGGING -> {
 
@@ -342,21 +346,24 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun clear(){
+    private fun clear(){
         editDate.text.clear()
         editTime.text.clear()
         editDescription.text.clear()
         editPredmet.text.clear()
+        chipLow.isChecked = true
+        imgPinned.setImageResource(R.drawable.ic_push_unpin_24px)
+        imgPinned.contentDescription = "unpinned"
     }
 
-    fun bottomShow(){
+    private fun bottomShow(){
         if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED)
         {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
         }
     }
 
-    fun bottomHide(){
+    private fun bottomHide(){
         if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_HIDDEN)
         {
             val imm = getSystemService(requireContext(), InputMethodManager::class.java)
