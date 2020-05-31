@@ -1,26 +1,5 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="titleTextColor">@color/textColorPrimary</item>
-        <item name="android:windowLightStatusBar">true</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
-
-    </style>
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
-    </style>
-
     <style name="AppThemeDayNight" parent="Theme.MaterialComponents.DayNight">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -48,13 +27,28 @@
     <style name="AppThemeDayNight.ActionBar" parent="ThemeOverlay.MaterialComponents.ActionBar">
         <item name="actionMenuTextColor">@color/textColorPrimary</item>
     </style>
+
     <style name="Dialog.Theme" parent="ThemeOverlay.MaterialComponents.Dialog">
         <item name="colorPrimary">@color/textColorPrimary</item>
     </style>
+
     <style name="ChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="android:layout_width">95dp</item>
         <item name="android:theme">@style/Theme.MaterialComponents.DayNight</item>
         <item name="android:textAlignment">center</item>
     </style>
 
+    <style name="BottomSheet" parent="@style/Theme.MaterialComponents.BottomSheetDialog">
+        <item name="android:background">@drawable/shape_bottom_sheet</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.MaterialComponents.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" >
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+    </style>
 </resources>

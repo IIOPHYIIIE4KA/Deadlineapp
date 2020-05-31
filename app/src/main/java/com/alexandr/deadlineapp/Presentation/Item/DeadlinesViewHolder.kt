@@ -13,7 +13,7 @@ import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
 import kotlinx.android.synthetic.main.deadline_card.view.*
 import java.util.*
 
-class DeadlinesViewHolder(view : View) : RecyclerView.ViewHolder(view), View.OnClickListener {
+class DeadlinesViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     val predmet = view.tvPred
     val zadanie = view.tvZad
     val completed = view.rbComp
@@ -22,9 +22,12 @@ class DeadlinesViewHolder(view : View) : RecyclerView.ViewHolder(view), View.OnC
     val importance : Int? = R.color.colorLow
     val card = view.card
     val img = view.imgClock
+
     private lateinit var deadline: Deadline
 
-    fun setDeadline(deadline: Deadline, color: Int, onCreateContextMenuListener: View.OnCreateContextMenuListener){
+    fun setDeadline(deadline: Deadline, color: Int,
+                    onCreateContextMenuListener: View.OnCreateContextMenuListener,
+                    clickListener: View.OnClickListener) {
         this.deadline = deadline
         predmet.text = deadline.name.toUpperCase(Locale.ROOT)
         zadanie.text = deadline.description
@@ -49,14 +52,9 @@ class DeadlinesViewHolder(view : View) : RecyclerView.ViewHolder(view), View.OnC
                 img.setImageResource(R.drawable.ic_access_alarm_high_24dp)
             }
         }
-        completed.setOnClickListener(this)
+        completed.setOnClickListener(clickListener)
         card.setCardBackgroundColor(color)
         card.setOnCreateContextMenuListener(onCreateContextMenuListener)
-    }
-
-    override fun onClick(v: View?) {
-        if (v?.id == R.id.rbComp)
-        {(v as RadioButton).isChecked = deadline.completed}
     }
 
     fun getDeadline(): Deadline {

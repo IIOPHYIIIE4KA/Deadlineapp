@@ -14,7 +14,7 @@ import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
 import com.alexandr.deadlineapp.Utils.DeadlinesDiffCallback
 
 
-class MyDeadlineRecyclerViewAdapter (private var items : List<Deadline>,
+class MyDeadlineRecyclerViewAdapter (var items : List<Deadline>,
                                      val context : Context,
                                      private val deadlineViewModel : DeadlineViewModel
 ) :
@@ -22,17 +22,19 @@ class MyDeadlineRecyclerViewAdapter (private var items : List<Deadline>,
 
 
     fun updateBookList(newDeadlinesList: List<Deadline>) {
-        val diffResult = DiffUtil.calculateDiff(DeadlinesDiffCallback(items, newDeadlinesList), true)
+        val diffResult =
+            DiffUtil.calculateDiff(DeadlinesDiffCallback(items, newDeadlinesList), true)
         items = newDeadlinesList
         diffResult.dispatchUpdatesTo(this)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeadlinesViewHolder {
-        return DeadlinesViewHolder(LayoutInflater.from(context).inflate(R.layout.deadline_card, parent, false))
+        return DeadlinesViewHolder(LayoutInflater.from(context)
+            .inflate(R.layout.deadline_card, parent, false))
     }
 
     override fun getItemCount(): Int {
-        return items.size;
+        return items.size
     }
 
     override fun onBindViewHolder(holder: DeadlinesViewHolder, position: Int) {
@@ -46,22 +48,17 @@ class MyDeadlineRecyclerViewAdapter (private var items : List<Deadline>,
         val listener = View.OnCreateContextMenuListener { menu, _, _ ->
             if (!items[position].completed) {
                 menu.add("Выполнено").setOnMenuItemClickListener {
-                    items[position].completed = true
-                    deadlineViewModel.updateOne(items[position])
+                    deadlineViewModel.setCompleted(items[position])
                     true
                 }
                 if (items[position].pinned) {
                     menu.add("Открепить").setOnMenuItemClickListener {
-                        Toast.makeText(context, "Дедлайн откреплен", Toast.LENGTH_SHORT).show()
-                        items[position].pinned = false
-                        deadlineViewModel.updateOne(items[position])
+                        deadlineViewModel.setPinned(items[position])
                         true
                     }
                 } else {
                     menu.add("Закрепить").setOnMenuItemClickListener {
-                        Toast.makeText(context, "Дедлайн закреплен", Toast.LENGTH_SHORT).show()
-                        items[position].pinned = true
-                        deadlineViewModel.updateOne(items[position])
+                        deadlineViewModel.setPinned(items[position])
                         true
                     }
                 }
@@ -71,12 +68,14 @@ class MyDeadlineRecyclerViewAdapter (private var items : List<Deadline>,
                 }
             }
             menu.add("Удалить").setOnMenuItemClickListener {
-                Toast.makeText(context, "Дедлайн удален", Toast.LENGTH_SHORT).show()
                 deadlineViewModel.deleteOne(items[position])
                 true
             }
         }
-        holder.setDeadline(items[position],ContextCompat.getColor(context,color), listener)
+        val click = View.OnClickListener {
+            deadlineViewModel.setCompleted(items[position])
+        }
+        holder.setDeadline(items[position],ContextCompat.getColor(context, color), listener, click)
     }
 
 }

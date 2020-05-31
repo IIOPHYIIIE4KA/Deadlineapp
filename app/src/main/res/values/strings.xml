@@ -26,4 +26,6 @@
     <string name="updateButton">Обновить</string>
     <string name="emptyList">Дедлайнов нет :(</string>
     <string name="predmetError">Заполните описание!</string>
+    <string name="deleteDeadline">Дедлайн удален</string>
+    <string name="cancel">Отменить</string>
 </resources>
