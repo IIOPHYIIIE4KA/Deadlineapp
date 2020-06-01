@@ -18,8 +18,6 @@
     <string name="pinned">Закрепить</string>
     <string name="deadline_time">До какого времени?</string>
     <string name="deadline_date">До какого числа?</string>
-    <string name="channel_name">Channel1</string>
-    <string name="channel_description">Deadline</string>
     <string name="add">Добавить</string>
     <string name="title">Дедлайны</string>
     <string name="pressBack">Нажмите НАЗАД еще раз, чтобы выйти</string>
@@ -33,4 +31,6 @@
     <string name="predmetSample">ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ</string>
     <string name="zadSample">Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание</string>
     <string name="dataSample">Пн, 01.01.2020, 00:00</string>
+    <string name="pin">pinned</string>
+    <string name="unpin">unpinned</string>
 </resources>

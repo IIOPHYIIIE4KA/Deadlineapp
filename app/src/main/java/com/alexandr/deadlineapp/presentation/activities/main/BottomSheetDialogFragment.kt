@@ -139,12 +139,12 @@ class AddBottomSheetDialogFragment
         }
 
         imgPinned.setOnClickListener { it as ImageView
-            if (it.contentDescription == "pinned"){
+            if (it.contentDescription == getString(R.string.pin)){
                 it.setImageResource(R.drawable.ic_push_unpin_24px)
-                it.contentDescription = "unpinned"
+                it.contentDescription = getString(R.string.unpin)
             } else {
                 it.setImageResource(R.drawable.ic_push_pin_24px)
-                it.contentDescription = "pinned"
+                it.contentDescription = getString(R.string.pin)
             }
         }
 
@@ -200,7 +200,7 @@ class AddBottomSheetDialogFragment
         editDate.text.clear()
         editTime.text.clear()
         imgPinned.setImageResource(R.drawable.ic_push_unpin_24px)
-        imgPinned.contentDescription = "unpinned"
+        imgPinned.contentDescription = getString(R.string.unpin)
         chipLow.isChecked = true
         if (this.edit) {
             btadd.setOnClickListener(this)
