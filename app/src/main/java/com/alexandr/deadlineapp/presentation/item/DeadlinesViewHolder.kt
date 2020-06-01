@@ -1,5 +1,6 @@
 package com.alexandr.deadlineapp.presentation.item
 
+import android.view.ContextMenu
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.alexandr.deadlineapp.R
@@ -13,9 +14,10 @@ class DeadlinesViewHolder(view : View) : RecyclerView.ViewHolder(view) {
     val completed = view.rbComp
     val pinned = view.imgPin
     val datetime = view.tvDateTime
-    val importance : Int? = R.color.colorLow
+    //val importance : Int? = R.color.colorLow
     val card = view.card
     val img = view.imgClock
+    private var contextMenu: ContextMenu? = null
 
     private lateinit var deadline: Deadline
 
@@ -55,4 +57,11 @@ class DeadlinesViewHolder(view : View) : RecyclerView.ViewHolder(view) {
         return deadline
     }
 
+    fun setcontextMenu(c: ContextMenu) {
+        contextMenu = c
+    }
+
+    fun closeContextMenu() {
+        contextMenu?.close()
+    }
 }

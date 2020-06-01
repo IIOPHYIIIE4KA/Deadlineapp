@@ -175,6 +175,7 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
             if (swipeDir == ItemTouchHelper.LEFT) {
                 if (viewHolder is DeadlinesViewHolder) {
+                    viewHolder.closeContextMenu()
                     viewModel.delete(viewHolder.getDeadline())
                 }
             }

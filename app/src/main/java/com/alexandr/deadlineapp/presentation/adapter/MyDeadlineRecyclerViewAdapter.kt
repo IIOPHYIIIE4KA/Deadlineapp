@@ -70,11 +70,13 @@ class MyDeadlineRecyclerViewAdapter (private var items : List<Deadline>,
                 deadlineViewModel.delete(items[position])
                 true
             }
+            holder.setcontextMenu(menu)
         }
         val click = View.OnClickListener {
             deadlineViewModel.setCompleted(items[position])
         }
-        holder.setDeadline(items[position],ContextCompat.getColor(context, color), listener, click)
+        holder.setDeadline(items[position],
+            ContextCompat.getColor(context, color), listener, click)
     }
 
 }
