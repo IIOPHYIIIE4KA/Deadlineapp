@@ -1,5 +1,6 @@
 package com.alexandr.deadlineapp.Presentation.activities.main
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,6 @@ import com.alexandr.deadlineapp.Domain.DeadlineViewModel
 import com.alexandr.deadlineapp.Presentation.Adapter.MyDeadlineRecyclerViewAdapter
 import com.alexandr.deadlineapp.Presentation.Item.DeadlinesViewHolder
 import com.alexandr.deadlineapp.R
-import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -51,35 +51,14 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(DeadlineViewModel::class.java)
         mainActivity = activity as MainActivity
-        bot =
-            AddBottomSheetDialogFragment.newInstance(
-                mainActivity
-            )
+        bot = AddBottomSheetDialogFragment.newInstance(mainActivity)
         fm = mainActivity.supportFragmentManager
         setRecycler()
         defaultData()
         editDeadline()
+        deleteDeadline()
         setToolbar()
         fab.setOnClickListener(this)
-    }
-
-    private fun setSnack(deadline: Deadline) {
-        val snackbar = Snackbar.make(view as View,
-            R.string.deleteDeadline, Snackbar.LENGTH_SHORT)
-        var isRemoved = true
-        snackbar
-            .setAction(R.string.cancel) {
-            isRemoved = false
-        }
-            .addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
-                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
-                    super.onDismissed(transientBottomBar, event)
-                    if (!isRemoved) {
-                        viewModel.saveInformation(deadline)
-                    }
-                }
-            })
-            .show()
     }
 
     private fun editDeadline() {
@@ -91,11 +70,31 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
         })
     }
 
+    private fun deleteDeadline() {
+        viewModel.delete.observe(viewLifecycleOwner, Observer {
+            viewModel.deleteOne(it)
+            val snackbar = Snackbar.make(view as View,
+                R.string.deleteDeadline, Snackbar.LENGTH_SHORT)
+            var isRemoved = true
+            snackbar
+                .setAction(R.string.cancel) {
+                    isRemoved = false
+                }
+                .addCallback(object : BaseTransientBottomBar.BaseCallback<Snackbar>() {
+                    override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                        super.onDismissed(transientBottomBar, event)
+                        if (!isRemoved) {
+                            viewModel.saveInformation(it)
+                        }
+                    }
+                })
+                .show()
+        })
+    }
+
     private fun defaultData() {
-        type =
-            DataType.FULL
-        if (!viewModel.data.hasActiveObservers()) {
-            viewModel.data.observe(viewLifecycleOwner, Observer {
+        type = DataType.FULL
+        viewModel.data.observe(viewLifecycleOwner, Observer {
             if (recycler.adapter == null) {
                 recycler.adapter =
                     MyDeadlineRecyclerViewAdapter(
@@ -107,7 +106,7 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
                 (recycler.adapter as MyDeadlineRecyclerViewAdapter).updateBookList(it)
             }
             noDeadlines((recycler.adapter as MyDeadlineRecyclerViewAdapter).itemCount != 0)
-        })}
+        })
     }
 
     private fun requestData(typeData: DataType) {
@@ -134,7 +133,6 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
         }
         type = typeData
     }
-
 
     private fun setRecycler() {
         recycler.layoutManager = LinearLayoutManager(context)
@@ -167,7 +165,7 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
         ): Int {
             return ItemTouchHelper.Callback.makeMovementFlags(
                 0,
-                ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+                ItemTouchHelper.LEFT
             )
         }
         override fun onMove(recyclerView: RecyclerView,
@@ -179,8 +177,7 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
             if (swipeDir == ItemTouchHelper.LEFT) {
                 if (viewHolder is DeadlinesViewHolder) {
-                    setSnack(viewHolder.getDeadline())
-                    viewModel.deleteOne(viewHolder.getDeadline())
+                    viewModel.delete(viewHolder.getDeadline())
                 }
             }
         }
@@ -194,7 +191,7 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
 
     private fun unObserve() {
         when (type) {
-            DataType.FULL -> { viewModel.clearObserveData(viewLifecycleOwner) }
+            DataType.FULL ->  viewModel.clearObserveData(viewLifecycleOwner)
             DataType.FIND -> viewModel.clearObserveFind(viewLifecycleOwner)
             DataType.NOTCOMP -> viewModel.clearObserveDataCur(viewLifecycleOwner)
         }
@@ -203,7 +200,7 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
     private fun setToolbar(){
         mainActivity.setSupportActionBar(toolbar)
         mainActivity.toolbar.title = resources.getString(R.string.title)
-        mainActivity.toolbar.menu.add("White").setOnMenuItemClickListener {
+        /*mainActivity.toolbar.menu.add("White").setOnMenuItemClickListener {
             AppCompatDelegate.setDefaultNightMode(
                 AppCompatDelegate.MODE_NIGHT_NO)
             true
@@ -220,11 +217,8 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
                 requestData(DataType.FULL)
             }
             true
-        }
-        mainActivity.toolbar.menu.add("dialog").setOnMenuItemClickListener {
-            fab.hide()
-            true
-        }
+        }*/
     }
+
 
 }

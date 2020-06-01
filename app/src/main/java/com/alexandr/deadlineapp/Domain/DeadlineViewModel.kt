@@ -21,6 +21,7 @@ import kotlin.coroutines.CoroutineContext
 class DeadlineViewModel(app: Application) :
     AndroidViewModel(app) {
     var edit : MutableLiveData<Deadline> = MutableLiveData()
+    var delete : MutableLiveData<Deadline> = MutableLiveData()
 
     private var database: AppDatabase = AppDatabase.getDatabase(app)
     private val deadlinesRepository = DeadlinesRepository(database)
@@ -49,6 +50,10 @@ class DeadlineViewModel(app: Application) :
 
     fun edit(d: Deadline) {
         edit.value = d
+    }
+
+    fun delete(d: Deadline) {
+        delete.value = d
     }
 
     override fun onCleared() {

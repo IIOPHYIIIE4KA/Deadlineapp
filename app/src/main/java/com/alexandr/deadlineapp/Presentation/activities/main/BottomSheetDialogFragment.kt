@@ -164,9 +164,11 @@ class AddBottomSheetDialogFragment
         val predmet =  editPredmet.text.toString()
         val descr = editDescription.text.toString()
         if (descr.isEmpty()) {
-            Toast.makeText(activity, R.string.predmetError, Toast.LENGTH_SHORT).show()
+            //Toast.makeText(activity, R.string.predmetError, Toast.LENGTH_SHORT).show()
+            editDescription.error = resources.getString(R.string.predmetError)
             return
         }
+
         var color: Int = R.color.colorLow
         if (chipMedium.isChecked) {
             color = R.color.colorMedium
@@ -186,6 +188,7 @@ class AddBottomSheetDialogFragment
     override fun onPause() {
         super.onPause()
         if (this.edit) clear()
+        editDescription.error = null
     }
 
     override fun dismiss() {
@@ -206,5 +209,9 @@ class AddBottomSheetDialogFragment
             btadd.setText(R.string.add)
             this.edit = false
         }
+    }
+
+    fun getDeadline() : Deadline? {
+        return deadline
     }
 }

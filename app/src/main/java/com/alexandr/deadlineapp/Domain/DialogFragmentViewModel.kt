@@ -8,7 +8,7 @@ import com.alexandr.deadlineapp.Repository.DeadlinesRepository
 
 class DialogFragmentViewModel(app: Application) :
     AndroidViewModel(app) {
-    private var deadline : Deadline = Deadline(name = "", date = "", time = "")
+
     private var database: AppDatabase = AppDatabase.getDatabase(app)
     private val deadlinesRepository = DeadlinesRepository(database)
 

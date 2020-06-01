@@ -3,7 +3,6 @@ package com.alexandr.deadlineapp.Presentation.Adapter
 
 import android.content.Context
 import android.view.*
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -68,7 +67,7 @@ class MyDeadlineRecyclerViewAdapter (var items : List<Deadline>,
                 }
             }
             menu.add("Удалить").setOnMenuItemClickListener {
-                deadlineViewModel.deleteOne(items[position])
+                deadlineViewModel.delete(items[position])
                 true
             }
         }
