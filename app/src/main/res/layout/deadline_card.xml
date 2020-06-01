@@ -34,7 +34,7 @@
                 android:id="@+id/tvPred"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ"
+                android:text="@string/predmetSample"
                 android:maxLines="1"
                 android:textColor="@color/predmetcolor"
                 android:textStyle="bold"
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="5"
-                android:text="Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание "
+                android:text="@string/zadSample"
                 android:layout_below="@+id/tvPred"
                 android:textColor="@color/textColorPrimary"
                 android:layout_marginEnd="20dp"
@@ -64,12 +64,13 @@
                 android:adjustViewBounds="true"
                 android:maxWidth="20dp"
                 android:maxHeight="20dp"
-                android:layout_below="@id/tvZad"/>
+                android:layout_below="@id/tvZad"
+                android:contentDescription="@string/pinnedImage" />
             <TextView
                 android:id="@+id/tvDateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Пн, 01.01.2020, 00:00"
+                android:text="@string/dataSample"
                 android:layout_alignParentEnd="true"
                 android:fontFamily="sans-serif-medium"
                 android:textSize="13sp"
@@ -88,7 +89,8 @@
                 android:layout_toStartOf="@id/tvDateTime"
                 android:layout_below="@id/tvZad"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"/>
+                android:layout_marginEnd="5dp"
+                android:contentDescription="@string/clockImage" />
         </RelativeLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

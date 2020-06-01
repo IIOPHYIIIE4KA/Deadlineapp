@@ -1,9 +1,8 @@
-package com.alexandr.deadlineapp.Repository.Database.DAO
+package com.alexandr.deadlineapp.repository.database.dao
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
-import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
+import com.alexandr.deadlineapp.repository.database.entity.Deadline
 
 @Dao
 interface DeadlineDAO {

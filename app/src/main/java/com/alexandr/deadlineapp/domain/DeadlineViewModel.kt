@@ -1,21 +1,12 @@
-package com.alexandr.deadlineapp.Domain
+package com.alexandr.deadlineapp.domain
 
-import android.app.Activity
 import android.app.Application
-import android.content.Context
-import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.alexandr.deadlineapp.App
-import com.alexandr.deadlineapp.Repository.Database.AppDatabase
-import com.alexandr.deadlineapp.Repository.Database.DAO.DeadlineDAO
-import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
-import com.alexandr.deadlineapp.Repository.DeadlinesRepository
-import kotlinx.coroutines.*
-import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
+import com.alexandr.deadlineapp.repository.database.AppDatabase
+import com.alexandr.deadlineapp.repository.database.entity.Deadline
+import com.alexandr.deadlineapp.repository.DeadlinesRepository
 
 
 class DeadlineViewModel(app: Application) :

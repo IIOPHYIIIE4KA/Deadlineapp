@@ -1,4 +1,4 @@
-package com.alexandr.deadlineapp.Presentation.activities.main
+package com.alexandr.deadlineapp.presentation.activities.main
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -9,12 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
-import com.alexandr.deadlineapp.Domain.DialogFragmentViewModel
+import com.alexandr.deadlineapp.domain.DialogFragmentViewModel
 import com.alexandr.deadlineapp.R
-import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
-import com.alexandr.deadlineapp.Utils.Utils
+import com.alexandr.deadlineapp.repository.database.entity.Deadline
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.bottom_sheet.*
@@ -36,7 +34,7 @@ class AddBottomSheetDialogFragment
         DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
             val c = Calendar.getInstance()
             c.set(year,monthOfYear,dayOfMonth)
-            var date = "${Utils.WeekDay(c.get(Calendar.DAY_OF_WEEK))}, "
+            var date = "${weekDay(c.get(Calendar.DAY_OF_WEEK))}, "
             date += if (dayOfMonth<10) "0${dayOfMonth}." else "${dayOfMonth}."
             date += if (monthOfYear<10) "0${monthOfYear}." else "${monthOfYear}."
             date += "$year"
@@ -211,7 +209,20 @@ class AddBottomSheetDialogFragment
         }
     }
 
-    fun getDeadline() : Deadline? {
+    fun getDeadline(): Deadline? {
         return deadline
+    }
+
+    private fun weekDay(day:Int): String{
+        return when(day) {
+            1 -> "Вс"
+            2 -> "Пн"
+            3 -> "Вт"
+            4 -> "Ср"
+            5 -> "Чт"
+            6 -> "Пт"
+            7 -> "Сб"
+            else -> "Пн"
+        }
     }
 }

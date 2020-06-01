@@ -28,4 +28,9 @@
     <string name="predmetError">Заполните описание!</string>
     <string name="deleteDeadline">Дедлайн удален</string>
     <string name="cancel">Отменить</string>
+    <string name="pinnedImage">Иконка закрепления</string>
+    <string name="clockImage">Иконка часов</string>
+    <string name="predmetSample">ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ ПРЕДМЕТ</string>
+    <string name="zadSample">Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание Задание</string>
+    <string name="dataSample">Пн, 01.01.2020, 00:00</string>
 </resources>

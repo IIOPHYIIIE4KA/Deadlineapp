@@ -1,4 +1,4 @@
-package com.alexandr.deadlineapp.Presentation.Adapter
+package com.alexandr.deadlineapp.presentation.adapter
 
 
 import android.content.Context
@@ -6,15 +6,15 @@ import android.view.*
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.alexandr.deadlineapp.Domain.DeadlineViewModel
-import com.alexandr.deadlineapp.Presentation.Item.DeadlinesViewHolder
+import com.alexandr.deadlineapp.domain.DeadlineViewModel
+import com.alexandr.deadlineapp.presentation.item.DeadlinesViewHolder
 import com.alexandr.deadlineapp.R
-import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
-import com.alexandr.deadlineapp.Utils.DeadlinesDiffCallback
+import com.alexandr.deadlineapp.repository.database.entity.Deadline
+import com.alexandr.deadlineapp.utils.DeadlinesDiffCallback
 
 
-class MyDeadlineRecyclerViewAdapter (var items : List<Deadline>,
-                                     val context : Context,
+class MyDeadlineRecyclerViewAdapter (private var items : List<Deadline>,
+                                     private val context : Context,
                                      private val deadlineViewModel : DeadlineViewModel
 ) :
     RecyclerView.Adapter<DeadlinesViewHolder>() {

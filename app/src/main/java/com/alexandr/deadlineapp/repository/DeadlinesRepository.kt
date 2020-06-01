@@ -1,10 +1,9 @@
-package com.alexandr.deadlineapp.Repository
+package com.alexandr.deadlineapp.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.alexandr.deadlineapp.Repository.Database.AppDatabase
-import com.alexandr.deadlineapp.Repository.Database.DAO.DeadlineDAO
-import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
+import com.alexandr.deadlineapp.repository.database.AppDatabase
+import com.alexandr.deadlineapp.repository.database.entity.Deadline
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 

@@ -1,10 +1,10 @@
-package com.alexandr.deadlineapp.Domain
+package com.alexandr.deadlineapp.domain
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.alexandr.deadlineapp.Repository.Database.AppDatabase
-import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
-import com.alexandr.deadlineapp.Repository.DeadlinesRepository
+import com.alexandr.deadlineapp.repository.database.AppDatabase
+import com.alexandr.deadlineapp.repository.database.entity.Deadline
+import com.alexandr.deadlineapp.repository.DeadlinesRepository
 
 class DialogFragmentViewModel(app: Application) :
     AndroidViewModel(app) {

@@ -1,4 +1,4 @@
-package com.alexandr.deadlineapp.Presentation.activities.main
+package com.alexandr.deadlineapp.presentation.activities.main
 
 import android.content.res.Configuration
 import android.os.Bundle

@@ -1,9 +1,10 @@
-package com.alexandr.deadlineapp.Repository.Database.Entity
+package com.alexandr.deadlineapp.repository.database.entity
 
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.alexandr.deadlineapp.R
+import java.util.*
 
 @Entity(tableName = "deadlines")
 class Deadline(
@@ -19,16 +20,18 @@ class Deadline(
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Deadline) return false
-        val deadline = other as? Deadline
+        //val deadline = other as? Deadline
         return false
-        /*this.id == deadline?.id
-                && this.name == deadline?.name
-                && this.description == deadline?.description
-                && this.completed == deadline?.completed
-                && this.pinned == deadline?.pinned
-                && this.date == deadline?.date
-                && this.time == deadline?.time
-                && this.importance == deadline?.importance*/
+        /*id == deadline?.id
+        && this.name == deadline?.name
+        && this.description == deadline.description
+        && this.completed == deadline.completed
+        && this.pinned == deadline.pinned*/
     }
+
+    override fun hashCode(): Int {
+        return id.hashCode()
+    }
+
 }
 

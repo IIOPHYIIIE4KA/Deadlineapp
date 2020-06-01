@@ -1,7 +1,7 @@
-package com.alexandr.deadlineapp.Utils
+package com.alexandr.deadlineapp.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
+import com.alexandr.deadlineapp.repository.database.entity.Deadline
 
 class DeadlinesDiffCallback(private val oldDeadlinesList: List<Deadline>?, private val newDeadlinesList: List<Deadline>?) : DiffUtil.Callback() {
 
@@ -19,5 +19,9 @@ class DeadlinesDiffCallback(private val oldDeadlinesList: List<Deadline>?, priva
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         return oldDeadlinesList?.get(oldItemPosition)?.equals(newDeadlinesList?.get(newItemPosition))!!
+    }
+
+    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+        return super.getChangePayload(oldItemPosition, newItemPosition)
     }
 }

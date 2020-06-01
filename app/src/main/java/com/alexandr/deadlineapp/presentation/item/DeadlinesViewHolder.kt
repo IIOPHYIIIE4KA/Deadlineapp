@@ -1,15 +1,9 @@
-package com.alexandr.deadlineapp.Presentation.Item
+package com.alexandr.deadlineapp.presentation.item
 
-import android.content.res.ColorStateList
-import android.graphics.Typeface
-import android.view.ContextMenu
-import android.view.Menu
-import android.view.MenuInflater
 import android.view.View
-import android.widget.RadioButton
 import androidx.recyclerview.widget.RecyclerView
 import com.alexandr.deadlineapp.R
-import com.alexandr.deadlineapp.Repository.Database.Entity.Deadline
+import com.alexandr.deadlineapp.repository.database.entity.Deadline
 import kotlinx.android.synthetic.main.deadline_card.view.*
 import java.util.*
 

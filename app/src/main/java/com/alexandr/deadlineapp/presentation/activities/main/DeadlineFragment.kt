@@ -1,11 +1,9 @@
-package com.alexandr.deadlineapp.Presentation.activities.main
+package com.alexandr.deadlineapp.presentation.activities.main
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
@@ -13,9 +11,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.alexandr.deadlineapp.Domain.DeadlineViewModel
-import com.alexandr.deadlineapp.Presentation.Adapter.MyDeadlineRecyclerViewAdapter
-import com.alexandr.deadlineapp.Presentation.Item.DeadlinesViewHolder
+import com.alexandr.deadlineapp.domain.DeadlineViewModel
+import com.alexandr.deadlineapp.presentation.adapter.MyDeadlineRecyclerViewAdapter
+import com.alexandr.deadlineapp.presentation.item.DeadlinesViewHolder
 import com.alexandr.deadlineapp.R
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
@@ -25,8 +23,8 @@ import kotlinx.android.synthetic.main.deadline_fragment.*
 
 class DeadlineFragment : Fragment(), View.OnClickListener {
 
-    private lateinit var mainActivity : MainActivity
-    private lateinit var viewModel : DeadlineViewModel
+    private lateinit var mainActivity: MainActivity
+    private lateinit var viewModel: DeadlineViewModel
     private lateinit var bot: AddBottomSheetDialogFragment
     private lateinit var fm: FragmentManager
 

@@ -6,7 +6,7 @@
     app:startDestination="@id/deadlineFragment">
     <fragment
         android:id="@+id/deadlineFragment"
-        android:name="com.alexandr.deadlineapp.Presentation.activities.main.DeadlineFragment"
+        android:name="com.alexandr.deadlineapp.presentation.activities.main.DeadlineFragment"
         android:label="deadline_fragment"
         tools:layout="@layout/deadline_fragment" />
 </navigation>
