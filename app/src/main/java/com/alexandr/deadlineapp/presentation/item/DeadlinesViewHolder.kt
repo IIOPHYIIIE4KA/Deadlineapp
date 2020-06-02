@@ -48,6 +48,7 @@ class DeadlinesViewHolder(view : View) : RecyclerView.ViewHolder(view) {
                 img.setImageResource(R.drawable.ic_access_alarm_high_24dp)
             }
         }
+        predmet.visibility = if (predmet.text.isEmpty()) View.GONE else View.VISIBLE
         completed.setOnClickListener(clickListener)
         card.setCardBackgroundColor(color)
         card.setOnCreateContextMenuListener(onCreateContextMenuListener)

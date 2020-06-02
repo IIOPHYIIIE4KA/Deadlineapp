@@ -30,12 +30,12 @@
             android:hint="@string/predmet_title"
             android:autofillHints=""
             android:background="@android:color/transparent"
-            android:layout_marginStart="15dp"/>
+            android:layout_marginStart="@dimen/bottomDimen"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp">
+        android:layout_marginTop="@dimen/bottomDimenTop">
         <ImageView
             android:id="@+id/imgDesc"
             android:layout_width="wrap_content"
@@ -50,13 +50,13 @@
             android:hint="@string/deadline_descr"
             android:autofillHints=""
             android:background="@android:color/transparent"
-            android:layout_marginStart="15dp"/>
+            android:layout_marginStart="@dimen/bottomDimen"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="18dp">
+        android:layout_marginTop="@dimen/bottomDimenTop">
         <ImageView
             android:id="@+id/imgCal"
             android:layout_width="wrap_content"
@@ -73,13 +73,13 @@
             android:inputType="date"
             android:autofillHints=""
             android:background="@android:color/transparent"
-            android:layout_marginStart="15dp"/>
+            android:layout_marginStart="@dimen/bottomDimen"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="18dp">
+        android:layout_marginTop="@dimen/bottomDimenTop">
         <ImageView
             android:id="@+id/imgClk"
             android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
             android:focusable="false"
             android:autofillHints=""
             android:background="@android:color/transparent"
-            android:layout_marginStart="15dp"/>
+            android:layout_marginStart="@dimen/bottomDimen"/>
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -139,7 +139,6 @@
             android:maxWidth="26dp"
             android:maxHeight="30dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="5dp"
             android:contentDescription="@string/unpin"
             android:layout_centerInParent="true"/>
     </RelativeLayout>

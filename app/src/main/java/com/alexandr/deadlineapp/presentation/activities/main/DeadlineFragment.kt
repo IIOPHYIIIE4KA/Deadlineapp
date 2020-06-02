@@ -1,9 +1,18 @@
 package com.alexandr.deadlineapp.presentation.activities.main
 
+import android.content.Context
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Paint
+import android.graphics.Rect
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
@@ -19,6 +28,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.deadline_fragment.*
+import kotlin.math.roundToInt
 
 
 class DeadlineFragment : Fragment(), View.OnClickListener {
@@ -27,6 +37,8 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
     private lateinit var viewModel: DeadlineViewModel
     private lateinit var bot: AddBottomSheetDialogFragment
     private lateinit var fm: FragmentManager
+    private lateinit var vibrator: Vibrator
+    private var isVibrated = false
 
     enum class DataType {
         FULL, NOTCOMP, FIND
@@ -51,6 +63,7 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
         mainActivity = activity as MainActivity
         bot = AddBottomSheetDialogFragment.newInstance(mainActivity)
         fm = mainActivity.supportFragmentManager
+        vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         setRecycler()
         defaultData()
         editDeadline()
@@ -157,18 +170,12 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
     private var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
         ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
-        override fun getMovementFlags(
-            recyclerView: RecyclerView,
-            viewHolder: RecyclerView.ViewHolder
-        ): Int {
-            return ItemTouchHelper.Callback.makeMovementFlags(
-                0,
-                ItemTouchHelper.LEFT
-            )
-        }
         override fun onMove(recyclerView: RecyclerView,
                             viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder
         ): Boolean {
+            if (viewHolder is DeadlinesViewHolder) {
+                viewHolder.closeContextMenu()
+            }
             return false
         }
 
@@ -179,6 +186,62 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
                     viewModel.delete(viewHolder.getDeadline())
                 }
             }
+        }
+
+        override fun onChildDraw(
+            c: Canvas,
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            dX: Float,
+            dY: Float,
+            actionState: Int,
+            isCurrentlyActive: Boolean
+        ) {
+            val trashBinIcon = resources.getDrawable(
+                R.drawable.ic_delete_black_24dp,
+                null
+            )
+            c.clipRect(viewHolder.itemView.width.toFloat(), viewHolder.itemView.top.toFloat(),
+                dX, viewHolder.itemView.bottom.toFloat())
+            val textMargin = resources.getDimension(R.dimen.text_margin)
+                .roundToInt() * 4
+            trashBinIcon.bounds = Rect(
+                viewHolder.itemView.width - trashBinIcon.intrinsicWidth + textMargin + dX.toInt(),
+                viewHolder.itemView.top +
+                        (viewHolder.itemView.height - trashBinIcon.intrinsicHeight) / 2,
+                viewHolder.itemView.width + textMargin + dX.toInt(),
+                viewHolder.itemView.top +
+                        (viewHolder.itemView.height + trashBinIcon.intrinsicHeight) / 2
+            )
+            if (-dX.toInt() >= viewHolder.itemView.width / 2 && isVibrated) {
+                isVibrated = false
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    vibrator.vibrate(
+                        VibrationEffect.createOneShot(
+                            10,
+                            VibrationEffect.EFFECT_TICK
+                        ))
+                }/* else {
+                    vibrator.vibrate(10)
+                    // api 23??
+                }*/
+            }
+            if (-dX.toInt() < viewHolder.itemView.width / 2) {
+                isVibrated = true
+            }
+            if (-dX.toInt() != viewHolder.itemView.width) {
+                val paint = Paint()
+                paint.style = Paint.Style.FILL_AND_STROKE
+                paint.color = Color.RED
+                c.drawCircle(
+                    viewHolder.itemView.width - trashBinIcon.intrinsicWidth/2 + textMargin + dX,
+                    (viewHolder.itemView.top + viewHolder.itemView.height / 2).toFloat(),
+                    -dX/5,
+                    paint
+                )
+                trashBinIcon.draw(c)
+            }
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
         }
     }
 
