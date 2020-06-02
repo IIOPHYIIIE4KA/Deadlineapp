@@ -12,7 +12,7 @@ import android.os.Vibrator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
@@ -199,10 +199,10 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
         ) {
             val trashBinIcon = resources.getDrawable(
                 R.drawable.ic_delete_black_24dp,
-                null
+                mainActivity.theme
             )
-            c.clipRect(viewHolder.itemView.width.toFloat(), viewHolder.itemView.top.toFloat(),
-                dX, viewHolder.itemView.bottom.toFloat())
+            //c.clipRect(viewHolder.itemView.width.toFloat(), viewHolder.itemView.top.toFloat(),
+            //    dX, viewHolder.itemView.bottom.toFloat())
             val textMargin = resources.getDimension(R.dimen.text_margin)
                 .roundToInt() * 4
             trashBinIcon.bounds = Rect(
@@ -221,10 +221,10 @@ class DeadlineFragment : Fragment(), View.OnClickListener {
                             10,
                             VibrationEffect.EFFECT_TICK
                         ))
-                }/* else {
+                } else {
                     vibrator.vibrate(10)
                     // api 23??
-                }*/
+                }
             }
             if (-dX.toInt() < viewHolder.itemView.width / 2) {
                 isVibrated = true
